@@ -1,0 +1,157 @@
+{
+  "updated": "2026-11-20",
+  "total_since_1995": 100000,
+  "hotels": 70,
+  "latest": {
+    "year": 2025,
+    "collected": 7890,
+    "released": 7577
+  },
+  "years": [
+    {
+      "y": 2017,
+      "v": 2839
+    },
+    {
+      "y": 2018,
+      "v": 4856
+    },
+    {
+      "y": 2019,
+      "v": 8845
+    },
+    {
+      "y": 2020,
+      "v": 6427
+    },
+    {
+      "y": 2021,
+      "v": 8314
+    },
+    {
+      "y": 2022,
+      "v": 9904
+    },
+    {
+      "y": 2023,
+      "v": 3528
+    },
+    {
+      "y": 2024,
+      "v": 6388
+    },
+    {
+      "y": 2025,
+      "v": 7890
+    }
+  ],
+  "islands": {
+    "2017": {
+      "Corvo": 72,
+      "Flores": 117,
+      "Faial": 315,
+      "Pico": 619,
+      "São Jorge": 620,
+      "Graciosa": 86,
+      "Terceira": 225,
+      "São Miguel": 699,
+      "Santa Maria": 86
+    },
+    "2018": {
+      "Corvo": 211,
+      "Flores": 179,
+      "Faial": 398,
+      "Pico": 1080,
+      "São Jorge": 1581,
+      "Graciosa": 158,
+      "Terceira": 171,
+      "São Miguel": 989,
+      "Santa Maria": 89
+    },
+    "2019": {
+      "Corvo": 639,
+      "Flores": 391,
+      "Faial": 972,
+      "Pico": 1837,
+      "São Jorge": 1430,
+      "Graciosa": 446,
+      "Terceira": 461,
+      "São Miguel": 2192,
+      "Santa Maria": 477
+    },
+    "2020": {
+      "Corvo": 658,
+      "Flores": 161,
+      "Faial": 562,
+      "Pico": 1168,
+      "São Jorge": 1561,
+      "Graciosa": 270,
+      "Terceira": 478,
+      "São Miguel": 1412,
+      "Santa Maria": 156
+    },
+    "2021": {
+      "Corvo": 252,
+      "Flores": 253,
+      "Faial": 794,
+      "Pico": 1936,
+      "São Jorge": 2408,
+      "Graciosa": 312,
+      "Terceira": 451,
+      "São Miguel": 1763,
+      "Santa Maria": 145
+    },
+    "2022": {
+      "Corvo": 563,
+      "Flores": 305,
+      "Faial": 1168,
+      "Pico": 1588,
+      "São Jorge": 2535,
+      "Graciosa": 514,
+      "Terceira": 890,
+      "São Miguel": 2175,
+      "Santa Maria": 166
+    },
+    "2023": {
+      "Corvo": 153,
+      "Flores": 61,
+      "Faial": 262,
+      "Pico": 558,
+      "São Jorge": 1020,
+      "Graciosa": 141,
+      "Terceira": 286,
+      "São Miguel": 1025,
+      "Santa Maria": 22
+    }
+  },
+  "dead": [
+    {
+      "y": 2017,
+      "v": 128
+    },
+    {
+      "y": 2018,
+      "v": 170
+    },
+    {
+      "y": 2019,
+      "v": 335
+    },
+    {
+      "y": 2020,
+      "v": 322
+    },
+    {
+      "y": 2021,
+      "v": 323
+    },
+    {
+      "y": 2022,
+      "v": 524
+    },
+    {
+      "y": 2023,
+      "v": 268
+    }
+  ]
+}
