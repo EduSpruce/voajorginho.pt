@@ -378,9 +378,9 @@ body{font-size:17px}
   /* o início usa a largura do ecrã; o balão fica ao lado do Jorginho (sem lhe tapar a cabeça) e o Jorginho pousa na ilha */
   #hub{max-width:min(2160px,calc(100vw - 96px))}
   #hub .hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
-  #hub .jbox{justify-content:center;align-items:flex-end;gap:14px;min-height:300px;z-index:2}
-  #hub .jbox img.j{width:min(320px,50%);flex:none;position:relative;top:clamp(50px,5.5vw,120px)}
-  #hub .bubble{position:relative;top:auto;left:auto;align-self:center;flex:0 1 320px;max-width:320px;hyphens:none;text-wrap:balance;border-radius:18px 18px 4px 18px;margin-bottom:70px}
+  #hub .jbox{--jw:clamp(230px,21vw,320px);justify-content:center;align-items:flex-end;gap:0;min-height:300px;z-index:2;transform:translateY(clamp(50px,5.5vw,120px))}
+  #hub .jbox img.j{width:var(--jw);flex:none}
+  #hub .bubble{position:relative;top:auto;left:auto;align-self:flex-end;flex:0 1 320px;max-width:320px;hyphens:none;text-wrap:balance;border-radius:18px 18px 4px 18px;margin:0 calc(var(--jw) * -.3) calc(var(--jw) * .6) 0;z-index:3}
   @media (min-width:1900px){#hub .gcard h3{font-size:32px}#hub .gcard p{font-size:18px}#hub .gcard .tag{font-size:14px}#hub .hero .lead{font-size:22px}#hub .bubble{font-size:19px}}
   #hub .bubble::after{content:'';position:absolute;right:-12px;bottom:6px;border:8px solid transparent;border-left:14px solid var(--espuma);border-right:0}
   #hub .hero{order:0}
@@ -5695,9 +5695,9 @@ body{font-size:17px}
   /* o início usa a largura do ecrã; o balão fica ao lado do Jorginho (sem lhe tapar a cabeça) e o Jorginho pousa na ilha */
   #hub{max-width:min(2160px,calc(100vw - 96px))}
   #hub .hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
-  #hub .jbox{justify-content:center;align-items:flex-end;gap:14px;min-height:300px;z-index:2}
-  #hub .jbox img.j{width:min(320px,50%);flex:none;position:relative;top:clamp(50px,5.5vw,120px)}
-  #hub .bubble{position:relative;top:auto;left:auto;align-self:center;flex:0 1 320px;max-width:320px;hyphens:none;text-wrap:balance;border-radius:18px 18px 4px 18px;margin-bottom:70px}
+  #hub .jbox{--jw:clamp(230px,21vw,320px);justify-content:center;align-items:flex-end;gap:0;min-height:300px;z-index:2;transform:translateY(clamp(50px,5.5vw,120px))}
+  #hub .jbox img.j{width:var(--jw);flex:none}
+  #hub .bubble{position:relative;top:auto;left:auto;align-self:flex-end;flex:0 1 320px;max-width:320px;hyphens:none;text-wrap:balance;border-radius:18px 18px 4px 18px;margin:0 calc(var(--jw) * -.3) calc(var(--jw) * .6) 0;z-index:3}
   @media (min-width:1900px){#hub .gcard h3{font-size:32px}#hub .gcard p{font-size:18px}#hub .gcard .tag{font-size:14px}#hub .hero .lead{font-size:22px}#hub .bubble{font-size:19px}}
   #hub .bubble::after{content:'';position:absolute;right:-12px;bottom:6px;border:8px solid transparent;border-left:14px solid var(--espuma);border-right:0}
   #hub .hero{order:0}
