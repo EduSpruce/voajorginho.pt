@@ -436,6 +436,23 @@ body[data-screen="vj-livro"] .rodape,body[data-screen="vj-cut"] .rodape{display:
 .cutcap b{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-radius:999px;padding:3px 10px;flex:none}
 .cutcap i{font-style:normal;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--hort);flex-basis:100%}
 .cutcap.so-leitor{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+/* "Como se salva um cagarro?" */
+.hubnav .btn.salvar{background:var(--colete);color:#1b2000;border-color:var(--colete)}
+#vj-salvar{max-width:1280px}
+.salvar-lead{max-width:52em;margin:4px 0 14px}
+ol.salvar-passos{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+ol.salvar-passos li{display:flex}
+ol.salvar-passos button{position:relative;display:flex;flex-direction:column;width:100%;text-align:left;font:inherit;color:inherit;background:var(--painel);border:1px solid var(--linha);border-radius:20px;padding:10px 10px 14px;cursor:pointer;transition:transform .15s,border-color .15s}
+ol.salvar-passos button:hover,ol.salvar-passos button:focus-visible{transform:translateY(-3px);border-color:var(--colete)}
+ol.salvar-passos canvas{width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:#0a1a2e;display:block}
+.sp-n{position:absolute;left:18px;top:18px;width:42px;height:42px;border-radius:50%;background:var(--colete);color:#1b2000;font-family:var(--f-display);font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(5,12,24,.4)}
+.sp-t{display:flex;flex-direction:column;gap:4px;padding:12px 6px 0;flex:1}
+.sp-t b{font-family:var(--f-display);font-size:22px;color:var(--bico);line-height:1.15}
+.sp-t span{font-size:16px;line-height:1.4}
+.sp-v{align-self:flex-start;margin:12px 6px 0;font-weight:700;font-size:14px;letter-spacing:1px;color:var(--hort)}
+.salvar-sos{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-bottom:12px}
+.salvar-sos .tel{font-family:var(--f-display);font-weight:900;font-size:36px;color:var(--bico)}
+@media (max-width:460px){ol.salvar-passos{grid-template-columns:1fr}}
 @media (max-width:1060px) and (min-width:861px){#hub .games{grid-template-columns:repeat(2,1fr)}}
 #hub .gcard .tag{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--hort);margin-top:2px}
 .gimg{position:relative;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 76% 22%,rgba(255,243,196,.5) 0 7%,transparent 8%),linear-gradient(#0b1f3a,#16406e 70%,#0c2f55 70%);display:flex;align-items:flex-end;justify-content:center;gap:4%}
@@ -501,6 +518,7 @@ body.playing .rodape{display:none}
     <div class="hpick" role="group" aria-label="Personagem"><button type="button" data-hero="f" aria-pressed="true"><img data-svg="kid-f-frente0" alt=""><span>Menina</span></button><button type="button" data-hero="m" aria-pressed="false"><img data-svg="kid-m-frente0" alt=""><span>Menino</span></button></div>
     <label class="hname">Nome<input id="lj-hname" maxlength="14" autocomplete="off"></label></div>
   <div class="row hubnav">
+    <button class="btn salvar" data-hub="vj-salvar" type="button">Como se salva um cagarro?</button>
     <button class="btn sec" data-hub="vj-how" type="button">Como se joga</button>
     <button class="btn sec" data-go="pedia" type="button">Cagarropédia</button>
     <button class="btn sec" data-hub="vj-stats" type="button">Estatísticas</button>
@@ -766,6 +784,23 @@ body.playing .rodape{display:none}
 </vj-script>
 </section>
 
+<section class="screen" id="vj-salvar">
+  <div class="row" style="justify-content:space-between;align-items:flex-end"><div><div class="eyebrow">Campanha SOS Cagarro · os 7 passos</div><h2>Como se salva um cagarro?</h2></div><button class="btn sec sm" data-hub="hub" type="button">Voltar</button></div>
+  <p class="lead salvar-lead">Em outubro e novembro, as luzes encandeiam os cagarros juvenis e muitos caem em terra. Se encontrares um, segue estes 7 passos, sempre com um adulto. Toca num passo para veres a animação.</p>
+  <div class="row"><button class="btn" id="vj-salvar-tudo" type="button">▶ Ver os 7 passos seguidos</button></div>
+  <ol class="salvar-passos">
+    <li><button type="button" data-salvar="1" data-t="7.2"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">1</span><span class="sp-t"><b>Aproxima-te devagar</b><span>Aproxima-te devagar, de luvas.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="2" data-t="6.6"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">2</span><span class="sp-t"><b>Cobre-o com um pano</b><span>Cobre-o com calma com um pano, casaco, manta ou toalha.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="3" data-t="7.4"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">3</span><span class="sp-t"><b>Segura-o e põe-no na caixa</b><span>Segura-o envolvendo o corpo todo, sem apertar, e põe-no numa caixa de cartão.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="4" data-t="6.2"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">4</span><span class="sp-t"><b>Entrega-o</b><span>Entrega-o aos Vigilantes da Natureza ou num ponto de recolha (PSP, GNR, Bombeiros). Se não puderes, guarda a caixa durante a noite num local calmo e escuro.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="5" data-t="7.4"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">5</span><span class="sp-t"><b>De manhã, junto ao mar</b><span>Na manhã seguinte, liberta-o junto ao mar, pousando-o suavemente no chão. Parte quando estiver pronto.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="6" data-t="7"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">6</span><span class="sp-t"><b>Regista o salvamento</b><span>Regista o salvamento no Portal SOS Cagarro.</span></span><span class="sp-v">▶ Ver</span></button></li>
+    <li><button type="button" data-salvar="7" data-t="8.6"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">7</span><span class="sp-t"><b>Na dúvida, liga</b><span>Em caso de dúvida, liga para a Linha SOS Ambiente.</span></span><span class="sp-v">▶ Ver</span></button></li>
+  </ol>
+  <div class="panel salvar-sos"><div><div class="eyebrow">Linha SOS Ambiente</div><div class="tel">800 292 800</div></div><p class="small muted">Gratuita, 24 horas por dia. É a linha da campanha a sério, fora do jogo.</p></div>
+  <p class="small muted">Passos da campanha SOS Cagarro, segundo o Governo dos Açores (Direção Regional de Políticas Marítimas) e a RTP Açores. Este jogo não é uma app oficial da campanha.</p>
+</section>
+
 <section class="screen" id="vj-livro">
   <div class="row" style="justify-content:space-between"><div><div class="eyebrow">O livro</div><h2>Voa, Jorginho!</h2></div><button class="btn sec sm" data-hub="hub" type="button">Voltar</button></div>
   <div class="livrobox"><iframe id="vj-livro-f" title="Livro: Voa, Jorginho!" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
@@ -831,6 +866,7 @@ body.playing .rodape{display:none}
         <li>Regista o salvamento no Portal SOS Cagarro.</li>
         <li>Em caso de dúvida, liga para a Linha SOS Ambiente.</li>
       </ol>
+      <button class="btn sm" data-hub="vj-salvar" type="button" style="margin-top:12px">▶ Ver os 7 passos em animação</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="panel"><div class="eyebrow">Linha SOS Ambiente</div><div class="tel">800 292 800</div><p class="small muted">Gratuita, 24 horas por dia. É a linha da campanha a sério, fora do jogo.</p></div>
@@ -1211,6 +1247,7 @@ window.VJ=(()=>{'use strict';
     const was=document.body.getAttribute('data-screen');document.body.setAttribute('data-screen',id);if(id!=='vj-livro')VJ.livroFull(false,true);
     const f=document.getElementById('vj-livro-f');
     if(id==='vj-stats'&&VJ.statsAnim)setTimeout(VJ.statsAnim,30);
+    if(id==='vj-salvar'&&VJ.salvarMini)setTimeout(VJ.salvarMini,30);
     if(id==='vj-livro'&&f){if(!f.srcdoc){const src=document.getElementById('vj-livro-src').textContent;f.srcdoc=src.split('<\\/script').join('</'+'script')}setTimeout(()=>{try{f.focus()}catch(e){}},60)}
     if(was==='vj-livro'&&id!=='vj-livro'&&f){try{const d=f.contentDocument,rb=d&&d.getElementById('read');if(rb&&rb.getAttribute('aria-pressed')==='true')rb.click();f.contentWindow.speechSynthesis&&f.contentWindow.speechSynthesis.cancel()}catch(e){}}};
   VJ.show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);VJ.onShow()};
@@ -5187,6 +5224,198 @@ SC['vc-Fajã dos Cubres>Topo']=Object.assign(patrulhaBase('A Linha SOS Ambiente'
     say('nina','Vamos já para lá!',nx+6,EST.chao-134,6.4,7.6,{lado:-1});
     say('nina','O Ilhéu do Topo! Ouves os cagarros a chamar?',VX-50,EST.chao-170,14.4,17.8)}});
 
+/* ================= COMO SE SALVA UM CAGARRO: os 7 passos da campanha SOS Cagarro, em animação =================
+   Quem joga (a menina ou o menino da brigada) vai com o avô, porque as crianças andam sempre com um adulto.
+   Cada passo é uma cena curta. No ecrã «Como se salva um cagarro?» vêem-se uma a uma ou todas seguidas.
+   Os passos são os do Governo dos Açores e da RTP Açores (os mesmos da Cagarropédia). */
+QUEM.avo={nome:()=>'Avô',cor:'#c9995a',tx:'#2a1a00'};
+const AVO={g:'m',lanterna:true,semente:7,cores:{cabelo:'#d9d5c8',chapeu:'#5a3a24',pompom:null,casaco:'#7e3a31',casaco2:'#6a2f28',calca:'#39424e',calca2:'#2a2f38'}};
+function avo(c,x,y,h,o){kid(c,x,y,h,Object.assign({},AVO,o||{}))}
+const SY=478,LX=650;   /* onde assentam os pés, na calçada, e onde fica o candeeiro */
+const salvarBase=(n,nome,dur,mus,sons)=>({jogo:'salvar',n,nome,dur,mus,sons,eyebrow:'COMO SE SALVA UM CAGARRO',titulo:['Passo '+n+' de 7',nome],semMapa:true,semChegada:true,tituloFim:3.6,cor:K.colete});
+/* resumo do passo, no fim de cada cena, na caixa de texto do livro */
+const resumo=(L,S)=>narr(L,S.dur-3.4,S.dur-.25,{forte:[0],passo:.7,fs:24,maxw:560});
+
+/* a rua das Velas de noite, com o candeeiro aceso que encandeou o cagarro */
+function ruaSalvar(c,t,o){o=o||{};ruaVelas(c,t,{luz:.9,lampX:LX,lua:[150,92,38,{cara:o.cara||'sorri',olha:[1,.8]}]});
+  candeeiro(c,LX,416,1.4,{on:1,pala:o.pala||0})}
+/* o cagarro caído, encandeado: às voltas com a cabeça e estrelinhas à roda */
+function caido(c,t,x,o){o=o||{};ave(c,x,SY,94,{flip:true,cabeca:Math.sin(t*1.6)*.14,al:o.al});if(o.tonto!==false)tonto(c,x-24,SY-90,t,24,4)}
+/* um objeto num círculo, com o nome por baixo (como o pano, a caixa e a pala do capítulo 9 da Lenda) */
+function objeto(c,x,y,k,nome,fn){if(k<=0)return;c.save();c.translate(x,y);c.scale(k,k);circ(c,0,5,50,'rgba(5,12,24,.35)');circ(c,0,0,48,'#0d223a');
+  c.strokeStyle=K.colete;c.lineWidth=3;c.beginPath();c.arc(0,0,47,0,TAU);c.stroke();fn(c);
+  c.font='900 20px '+F_DISPLAY;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';c.lineWidth=6;c.strokeStyle=K.noite;c.strokeText(nome,0,68);c.fillStyle=K.espuma;c.fillText(nome,0,68);c.restore()}
+/* uma luva de borracha */
+function luva(c,x,y,s,rot,col){c.save();c.translate(x,y);c.rotate(rot||0);c.scale(s,s);
+  [-10,-3.5,3,9.5].forEach((fx,i)=>caixaR(c,fx-3.2,-27+Math.abs(i-1.6)*3.4,6.6,26,3.3,col));
+  c.save();c.translate(-13,6);c.rotate(-.75);caixaR(c,-4,-16,8,20,4,col);c.restore();
+  caixaR(c,-14,-8,28,30,9,col);caixaR(c,-15,19,30,11,3,mixh(col,'#000000',.22));c.restore()}
+/* o pano (uma toalha azul às riscas). k=0: pendurado nas mãos, a abanar · k=1: pousado por cima do cagarro, como uma tenda */
+function pano(c,x,y,w,k,t){c.save();c.translate(x,y);c.fillStyle='#9dbcff';c.beginPath();
+  if(k<=0){const h=w*.7,o=Math.sin(t*7)*5;c.moveTo(-w/2,0);c.lineTo(w/2,0);c.quadraticCurveTo(w/2+o,h*.5,w/2-o*.5,h);for(let i=5;i>=0;i--)c.lineTo(-w/2+w*i/5+o*.4,h+(i%2?7:0));c.quadraticCurveTo(-w/2+o,h*.5,-w/2,0)}
+  else{const h=w*.78*k;c.moveTo(-w/2,0);c.bezierCurveTo(-w/2,-h*.55,-w*.3,-h,0,-h);c.bezierCurveTo(w*.3,-h,w/2,-h*.55,w/2,0);for(let i=6;i>=0;i--)c.lineTo(-w/2+w*i/6,i%2?6:0)}
+  c.closePath();c.fill();c.save();c.clip();c.fillStyle='#6f9bff';for(let i=-3;i<=3;i++)c.fillRect(i*w/7-5,-w,10,w*2);c.restore();c.restore()}
+/* ondas de quem toca: o telefone a tocar */
+function ondas(c,x,y,t,col){for(let i=0;i<3;i++){const k=(t*1.6+i/3)%1;c.save();c.globalAlpha=(1-k)*.8;c.strokeStyle=col||K.bico;c.lineWidth=4;c.lineCap='round';
+  [-1,1].forEach(d=>{c.beginPath();c.arc(x,y,20+k*34,d>0?-.6:Math.PI-.6,d>0?.6:Math.PI+.6);c.stroke()});c.restore()}}
+
+/* 1 · Aproxima-te devagar, de luvas */
+SC['salvar-1']=Object.assign(salvarBase(1,'Aproxima-te devagar',13.6,{tema:'misterio',tom:57,bpm:84,voz:'flauta',esc:'dorico'},
+  [[1,'passos'],[2.8,'passos'],[4.4,'passos'],[2.2,'cagarro'],[5.8,'brilho'],[8.8,'passos'],[10.2,'passos']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const hx=keys([[.6,-70],[5.6,330,E.out],[8.8,330],[11,490,E.io]],t),ax=keys([[.6,-190],[5.8,190,E.out]],t),
+      anda=(t>.6&&t<5.5)||(t>8.8&&t<10.9),devagar=t>8.8;
+    caido(c,t,LX);
+    avo(c,ax,SY,176,t>.6&&t<5.7?{anda:t*4.6}:{view:'frente',fala:t>5.8&&t<8.6,olha:[1,0]});
+    kid(c,hx,SY,124,anda?{anda:t*(devagar?3:5.4),braco:devagar?-34:null,braco2:devagar?-26:null}:{view:'frente',olha:[1,-1],espanto:t<7,bracosCima:t>5.8&&t<6.6?.45:0});
+    objeto(c,hx+96,SY-112,E.back(seg(t,5.8,6.3))*(1-E.inn(seg(t,8.4,8.8))),'Luvas',cc=>{luva(cc,-12,2,1.15,-.25,'#f6c431');luva(cc,13,4,1.15,.3,'#ffb03a')});
+    say('heroi','Olha, avô! Um cagarro caído ao pé do candeeiro!',hx+10,SY-140,1.8,5);
+    say('avo','Primeiro, as luvas. E nada de correr nem de gritar!',ax+10,SY-190,5.8,8.6,{lado:1});
+    say('heroi','Devagarinho…',hx+10,SY-140,8.9,10.3);
+    resumo(['Aproxima-te devagar,','de luvas calçadas.'],S)}});
+
+/* 2 · Cobre-o com um pano */
+SC['salvar-2']=Object.assign(salvarBase(2,'Cobre-o com um pano',13,{tema:'embalo',tom:60,bpm:80,voz:'flauta'},
+  [[3.6,'pala'],[4.6,'pop'],[5.6,'acorde']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const hx=520,voa=seg(t,3.6,4.6),pousa=t>=4.6,k=E.back(seg(t,4.6,5.2));
+    if(!pousa)caido(c,t,LX);
+    else{pano(c,LX-4,SY+2,124,Math.max(.2,k),t);if(t>5.6)zzz(c,LX+44,SY-96,t,1.1)}
+    avo(c,300,SY,176,{view:'frente',fala:t>.8&&t<3.4,olha:[1,0]});
+    kid(c,hx,SY,124,{braco:t>2.4&&t<4.8?-78:null,braco2:t>2.4&&t<4.8?-66:null,boca:t>5.6&&t<8.4?'grande':null,fala:t>5.6&&t<8.4});
+    /* o pano sai das mãos e voa até ao cagarro */
+    if(t>2.4&&!pousa){const px=lerp(hx+44,LX-4,E.io(voa)),py=lerp(SY-80,SY-84,voa)-Math.sin(voa*Math.PI)*70;
+      if(voa<=0)pano(c,px,py,70,0,t);else{c.save();c.translate(px,py);c.rotate(Math.sin(voa*Math.PI)*.2);pano(c,0,0,lerp(70,124,voa),0,t*1.6);c.restore()}}
+    say('avo','Um pano por cima, com calma: no escuro, ele acalma-se.',320,SY-190,.8,3.4,{lado:1});
+    say('heroi','Pronto! Já está mais sossegado.',hx+10,SY-140,5.6,8.4);
+    resumo(['Cobre-o com calma com um pano,','casaco, manta ou toalha.'],S)}});
+
+/* 3 · Segura-o e põe-no numa caixa */
+SC['salvar-3']=Object.assign(salvarBase(3,'Segura-o e põe-no na caixa',14.4,{tema:'jorginho',var:2,tom:62,bpm:92,voz:'caixa'},
+  [[1.8,'rola'],[4.6,'pop'],[7,'passos'],[9.4,'brilho'],[9.6,'cagarro']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const bx=430,poe=E.io(seg(t,1.2,2.2)),hx=keys([[6.4,560],[8.4,486,E.io]],t),vira=t>6.4,ergue=E.io(seg(t,4.4,5.6)),dentro=t>=9.4,
+      mx=vira?hx-30:hx+32,my=SY-62,baixa=E.io(seg(t,8.5,9.4));
+    /* a caixa: das mãos do avô para o chão */
+    const ax=keys([[0,330],[1.2,350,E.io]],t);
+    if(t>1.2)pup(c,dentro?'caixa-cheia':'caixa',lerp(ax+40,bx,poe),lerp(SY-48,SY+2,poe),dentro?78:70,{});
+    avo(c,ax,SY,176,t<2.2?{leva:'caixa'}:{view:'frente',fala:t>2.4&&t<4.6,olha:[1,0]});
+    /* o cagarro tapado: do chão para as mãos e das mãos para a caixa */
+    if(!dentro){let px=LX-4,py=SY+2;if(ergue>0){px=lerp(LX-4,mx,ergue);py=lerp(SY+2,my+40,ergue)}if(t>8.5){px=lerp(mx,bx,baixa);py=lerp(my+40,SY-26,baixa)}
+      pano(c,px,py,lerp(124,84,ergue),1,t)}
+    kid(c,hx,SY,124,{flip:vira,anda:t>6.4&&t<8.4?t*4:null,braco:t>4.2&&t<9.4?-74:null,braco2:t>4.2&&t<9.4?-64:null,fala:t>4.6&&t<7,boca:t>9.6&&t<11?'grande':null});
+    pop(c,'Na caixa!',bx,SY-150,48,9.6,11.6,{rot:-5,cor:K.colete,sombra:K.canal});
+    say('avo','A caixa de cartão tem furinhos para ele respirar.',ax+10,SY-190,2.4,4.6,{lado:1});
+    say('heroi','Com as duas mãos, à volta do corpo, sem apertar.',hx+10,SY-140,4.7,7.6,{lado:-1});
+    resumo(['Segura-o envolvendo o corpo todo,','sem apertar, e põe-no numa caixa.'],S)}});
+
+/* 4 · Entrega-o (ou guarda a caixa num sítio calmo e escuro, até de manhã) */
+SC['salvar-4']=Object.assign(salvarBase(4,'Entrega-o',17.2,{tema:'passeio',tom:58,bpm:96,voz:'caixa'},
+  [[.8,'passos'],[2.4,'passos'],[5.8,'rola'],[6.6,'acorde'],[9,'brilho'],[10,'pop']]),{
+  draw(c,t,S){const T=9,dentro=t>=T;
+    if(!dentro){const A=AMB.noite,px=640;
+      ceu(c,A,RUA_Y);estrelas(c,t,.9,RUA_Y-90,19);lua(c,150,92,38,t,{olha:[1,.8]});pico(c,260,RUA_Y,.9,A.far);
+      /* o posto dos Vigilantes da Natureza, com o jipe do Parque Natural à porta */
+      casa(c,px-140,RUA_Y,300,124,{cor:A.casa,n:3,lit:[1,1,1],telha:'#3d6f4c',th:26,portaCor:'#5a8f6b'});caixaR(c,px-130,RUA_Y-124-26+30,280,26,6,'#5a8f6b');
+      c.font='900 15px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='center';c.textBaseline='middle';c.fillText('VIGILANTES DA NATUREZA',px+10,RUA_Y-124-26+44);
+      casa(c,-20,RUA_Y,150,96,{cor:A.casa,lit:[1,0]});casa(c,850,RUA_Y,140,90,{cor:A.casa,lit:[0,1]});calcada(c,RUA_Y,0,A);
+      jipe(c,850,SY-6,t,{noite:true,flip:true});
+      const hx=keys([[.6,-60],[3.4,420,E.out]],t),ax=keys([[.6,-180],[3.6,250,E.out]],t),da2=E.io(seg(t,5.6,6.6));
+      gente(c,'vigilante',600,SY+2,160,{view:'frente',bracosCima:t>6.6&&t<7.4?.5:0,fala:t>6.8&&t<8.8,semente:4,olha:[-1,0]});
+      if(da2>0)pup(c,'caixa-cheia',lerp(hx+40,600,da2),SY-30-Math.sin(da2*Math.PI)*40-da2*14,lerp(42,60,da2),{sombra:false});
+      avo(c,ax,SY,176,t<3.6?{anda:t*4.6}:{});
+      kid(c,hx,SY,124,t<3.4?{anda:t*5,leva:'caixa-cheia'}:{leva:da2>0?null:'caixa-cheia',braco:da2>0&&da2<1?-70:null,fala:t>3.6&&t<5.6});
+      /* outros pontos de recolha */
+      const kp=env(t,1.2,T,.4,.3);if(kp>0){const x=CW-312,y=64;c.save();c.globalAlpha=kp;painel(c,x,y,288,104,18);c.font='700 12px '+F_BODY;c.fillStyle=K.hort;c.textAlign='left';c.textBaseline='alphabetic';espacado(c,'OU NUM PONTO DE RECOLHA',x+18,y+28,1.8);
+        let qx=x+18;['PSP','GNR','Bombeiros'].forEach(n=>{c.font='900 19px '+F_DISPLAY;const w=c.measureText(n).width+26;caixaR(c,qx,y+46,w,38,19,K.colete);c.fillStyle='#1b2000';c.textBaseline='middle';c.fillText(n,qx+13,y+66);qx+=w+8});c.restore()}
+      say('heroi','Trouxemos um cagarro!',hx+10,SY-140,3.6,5.6);
+      say('vigilante','Obrigada! Fica connosco a salvo até de manhã.',600,SY-170,6.8,8.8,{lado:1})}
+    else{/* dentro de casa: a caixa num canto calmo e escuro, à espera da manhã */
+      const s=t-T;c.fillStyle='#14233a';c.fillRect(0,0,CW,CH);c.fillStyle='#0f1b2c';c.fillRect(0,400,CW,CH-400);c.fillStyle='#1a2c47';c.fillRect(0,394,CW,8);
+      /* a janela com a Lua */
+      caixaR(c,610,80,230,190,10,'#2a3a55');c.save();c.beginPath();c.rect(624,94,202,162);c.clip();ceu(c,AMB.noite,256);estrelas(c,t,1,240,27);lua(c,730,170,34,t,{cara:'dorme'});c.restore();
+      c.fillStyle='#2a3a55';c.fillRect(722,94,6,162);c.fillRect(624,172,202,6);
+      c.globalAlpha=.12;c.fillStyle=K.lua;c.beginPath();c.moveTo(624,256);c.lineTo(826,256);c.lineTo(700,470);c.lineTo(420,470);c.closePath();c.fill();c.globalAlpha=1;
+      pup(c,'caixa-cheia',330,SY,88,{});zzz(c,370,SY-96,t,1.1);
+      avo(c,540,SY,176,{view:'frente',fala:s>1.2&&s<4,olha:[-1,0],luz:0});
+      kid(c,170,SY,124,{view:'frente',olha:[1,0],luz:0});
+      pop(c,'Shhh…',330,190,46,.6,3.4,{rot:-4,cor:K.hort,sombra:K.breu});
+      say('avo','Se não pudermos entregar, a caixa fica aqui, num canto calmo e escuro.',560,SY-190,1.2,4.2,{lado:-1});
+      resumo(['Se não puderes entregar, guarda','a caixa num sítio calmo e escuro,','durante a noite.'],S)}
+    passagem(c,t,T,.45,330,SY-60)}});
+
+/* 5 · De manhã, liberta-o junto ao mar */
+SC['salvar-5']=Object.assign(salvarBase(5,'De manhã, junto ao mar',16,{tema:'mar',tom:62,bpm:100,voz:'flauta',esc:'lidio'},
+  [[0,'mar',{d:16,v:.05}],[.8,'passos'],[2.2,'passos'],[3.8,'rola'],[5.4,'cagarro'],[8.2,'voou'],[8.6,'cagarro'],[9.2,'brilho']]),{
+  draw(c,t,S){const A=ambKeys([[0,AMB.aurora],[9,ambMix(AMB.aurora,AMB.dia,.7)],[16,AMB.dia]],t),hy=300;
+    ceu(c,A,hy);sol(c,180,hy+40-E.out(seg(t,0,10))*150,34,t,1);nuvens(c,t,A.nuv,{n:3,y:60,dy:40,a:.7,s:.7});pico(c,660,hy+2,.6,A.far);
+    mar(c,hy,t,A,0,420);
+    /* a costa: rochas de basalto e erva, mesmo ao pé do mar */
+    terra(c,404,0,A.g2,10,220,3);c.fillStyle=A.g1;c.fillRect(0,430,CW,CH-430);terra(c,446,40,A.g1,8,160,6);
+    rocha(c,80,430,110,40);rocha(c,840,428,130,46);rocha(c,700,440,70,24);hort(c,40,520,1.2,3);hort(c,920,522,1.1,5);
+    const bx=520,hx=keys([[.6,-60],[3.2,410,E.out]],t),ax=keys([[.6,-190],[3.4,240,E.out]],t),poe=E.io(seg(t,3.6,4.4)),
+      sai=E.out(seg(t,5,6.4)),voo=seg(t,8,12.4);
+    avo(c,ax,SY,176,t<3.4?{anda:t*4.6}:{view:'frente',fala:t>4.6&&t<7.8,olha:[1,0]});
+    if(t<4.4)kid(c,hx,SY,124,t<3.2?{anda:t*5,leva:'caixa'}:{braco:-70,braco2:-60});
+    else kid(c,hx,SY,124,{view:t>8?'frente':'lado',acena:t>8.4&&t<12,fala:t>8.6&&t<11.6,boca:t>8.4?'grande':null,olha:[1,-1]});
+    pup(c,'caixa',lerp(hx+40,bx,poe),lerp(SY-36,SY+2,poe),lerp(48,70,poe),{});
+    /* o cagarro sai da caixa, bate as asas e voa para o mar */
+    if(t>5&&t<8.2)ave(c,lerp(bx,610,sai),SY-(1-sai)*30-arco(t,5,6.4,30),lerp(40,96,sai),{asa:t>6.6?(Math.sin(t*16)+1)*.45:0,cabeca:t>6.6?-.1:0});
+    if(voo>0&&voo<1)cagarro(c,lerp(620,1060,E.inn(voo)),lerp(SY-60,120,E.out(voo)),lerp(120,150,voo),{bate:t*11,rot:-.25+voo*.2});
+    pop(c,'VOOU!',720,200,62,8.6,11.8,{rot:-5,cor:K.espuma,sombra:K.canal});
+    say('avo','De manhã, junto ao mar. Nunca de noite!',ax+10,SY-190,4.6,7.8,{lado:1});
+    say('heroi','Adeus, cagarro! Boa viagem!',hx+10,SY-140,8.6,11.6);
+    resumo(['Na manhã seguinte, liberta-o junto ao mar:','pousa-o no chão e deixa-o partir.'],S)}});
+
+/* 6 · Regista o salvamento no Portal SOS Cagarro */
+SC['salvar-6']=Object.assign(salvarBase(6,'Regista o salvamento',12.6,{tema:'festa',tom:64,bpm:108,voz:'caixa'},
+  [[2,'pop'],[3.2,'pop'],[4.4,'pop'],[5.6,'pop'],[6.6,'brilho'],[6.8,'acorde']]),{
+  draw(c,t,S){const A=AMB.dia;
+    c.fillStyle='#f4ead6';c.fillRect(0,0,CW,CH);c.fillStyle='#e3d5ba';c.fillRect(0,402,CW,CH-402);c.fillStyle='#c9995a';c.fillRect(0,396,CW,8);
+    /* a janela, com o mar e o Pico */
+    caixaR(c,40,70,300,200,10,'#c9b48f');c.save();c.beginPath();c.rect(54,84,272,172);c.clip();ceu(c,A,200);sol(c,280,124,22,t,1);pico(c,160,202,.42,A.far);mar(c,200,t,A,0,260);c.restore();
+    c.fillStyle='#c9b48f';c.fillRect(186,84,6,172);
+    avo(c,120,SY,176,{view:'frente',fala:t>7.2&&t<9.6,olha:[1,0]});
+    kid(c,270,SY,124,{view:'frente',fala:t>.8&&t<3.6,bracosCima:t>6.8&&t<7.8?.6:0,boca:t>6.6&&t<8?'grande':null,olha:[1,-.4]});
+    /* o tablet com o formulário do portal */
+    const k=E.back(seg(t,.6,1.2)),x=430,y=64,w=470,h=380;
+    c.save();c.translate(x+w/2,y+h/2);c.scale(k,k);c.translate(-x-w/2,-y-h/2);
+    caixaR(c,x-14,y-14,w+28,h+28,30,'#2a2f38');caixaR(c,x,y,w,h,18,K.espuma);caixaR(c,x,y,w,58,18,'#5a8f6b');c.fillStyle='#5a8f6b';c.fillRect(x,y+34,w,24);
+    c.font='900 24px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='left';c.textBaseline='middle';c.fillText('Portal SOS Cagarro',x+22,y+30);
+    const F=[['Ilha','São Jorge',1.6],['Local','Velas',2.8],['Cagarros','1',4],['Estado','Libertado junto ao mar',5.2]];
+    F.forEach((q,i)=>{const fy=y+82+i*62,n=Math.floor(clamp((t-q[2])/.8,0,1)*q[1].length);c.font='700 14px '+F_BODY;c.fillStyle='#5a6170';c.textBaseline='alphabetic';c.fillText(q[0],x+24,fy+14);
+      caixaR(c,x+22,fy+22,w-44,34,8,'#ffffff');c.strokeStyle=t>q[2]&&t<q[2]+1.1?K.porta:'#c9ccd3';c.lineWidth=2;rr(c,x+22,fy+22,w-44,34,8);c.stroke();
+      c.font='700 18px '+F_BODY;c.fillStyle=K.noite;c.textBaseline='middle';const tx=q[1].slice(0,n);c.fillText(tx,x+34,fy+40);
+      if(t>q[2]&&t<q[2]+1.1&&Math.sin(t*12)>0){const cw=c.measureText(tx).width;c.fillRect(x+36+cw,fy+29,2,22)}});
+    const env2=t>6.4,bt=y+h-56;caixaR(c,x+w-170,bt,148,40,20,env2?'#5a8f6b':K.porta);c.font='900 18px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='center';c.fillText(env2?'✓ Enviado':'Enviar',x+w-96,bt+21);
+    c.restore();
+    pop(c,'Registado!',x+w/2,y+h+52,46,6.6,9.6,{rot:-4,cor:K.colete,sombra:K.canal});
+    say('heroi','Agora, registamos o salvamento no portal.',290,SY-140,.8,3.6,{lado:-1});
+    say('avo','Assim, a campanha sabe quantos cagarros foram salvos.',140,SY-190,7.2,9.6,{lado:1});
+    resumo(['Regista o salvamento','no Portal SOS Cagarro.'],S)}});
+
+/* 7 · Na dúvida, liga para a Linha SOS Ambiente */
+SC['salvar-7']=Object.assign(salvarBase(7,'Na dúvida, liga',15.4,{tema:'jorginho',var:3,tom:60,bpm:100,voz:'corda'},
+  [[.8,'susto'],[6.2,'telefone'],[7.4,'telefone'],[8.6,'pop'],[12.4,'acorde'],[12.6,'brilho']]),{
+  draw(c,t,S){ruaSalvar(c,t,{cara:t<6?'espanto':'sorri'});
+    caido(c,t,LX,{tonto:true});
+    /* um ponto de interrogação por cima do cagarro: está ferido? */
+    if(t>.8&&t<6.2){c.save();c.globalAlpha=env(t,.8,6.2);c.font='900 54px '+F_DISPLAY;c.fillStyle=K.bico;c.textAlign='center';c.fillText('?',LX-10+Math.sin(t*3)*4,SY-128);c.restore()}
+    avo(c,250,SY,176,{view:'frente',fala:t>3.6&&t<6.2,olha:[1,0]});
+    kid(c,440,SY,124,{view:'frente',fala:t>.9&&t<3.6,espanto:t<3.6,olha:[1,-1],acena:t>6.2&&t<11});
+    /* o telefone com o número da Linha SOS Ambiente */
+    const kt=E.back(seg(t,6,6.5))*(1-seg(t,12.2,12.6));
+    if(kt>0){const tx=520,ty=180;c.save();c.translate(tx,ty+(t<8.4?Math.sin(t*38)*2.4:0));c.scale(kt,kt);
+      painel(c,-170,-58,340,116,24);caixaR(c,-150,-38,48,76,10,K.colete);caixaR(c,-143,-28,34,48,4,K.noite);circ(c,-126,28,4.4,K.noite);
+      if(t<8.4)ondas(c,-126,-2,t,K.colete);
+      c.font='700 13px '+F_BODY;c.fillStyle=K.hort;c.textAlign='left';c.textBaseline='alphabetic';espacado(c,'LINHA SOS AMBIENTE',-84,-22,1.6);
+      c.font='900 34px '+F_DISPLAY;c.fillStyle=K.bico;c.fillText('800 292 800',-84,14);c.font='700 14px '+F_BODY;c.fillStyle='#d5e1f5';c.fillText('Gratuita · 24 horas',-84,38);c.restore()}
+    pop(c,'Salve um cagarro, faça um amigo!',CW/2,250,38,12.4,15.2,{rot:-3,cor:K.bico,sombra:K.noite});
+    say('heroi','Avô, e se estiver ferido? Não sei o que fazer!',450,SY-140,.9,3.6);
+    say('avo','Na dúvida, ligamos para a Linha SOS Ambiente.',270,SY-190,3.6,6.2,{lado:1});
+    say('sos','Linha SOS Ambiente, boa noite! Diga-nos onde está o cagarro.',600,262,8.6,11.6,{lado:-1,baixo:true});
+    resumo(['Em caso de dúvida, liga para a','Linha SOS Ambiente: 800 292 800.'],S)}});
+
 /* ================= leitor: mostra uma cena no ecrã ================= */
 let atual=null;
 /* junta à cena o que o jogo sabe: de onde vem, para onde vai e em que nível ou noite está */
@@ -5203,9 +5432,10 @@ function prepara(o){const base=SC[o.id];if(!base)return null;const S=Object.assi
 function quadro(c,S,t,m){FR={t,S,falas:[],rects:[],narr:null,cap:!!(m&&m.cap),fs:(m&&m.fs)||22,legenda:null,mapaOn:false};
   const J=S.mapa||[.9,S.dur-3.3];FR.mapaOn=!S.semMapa&&!FR.cap&&t>J[0]+.1&&t<J[1]-.1;
   c.save();try{S.draw(c,t,S)}catch(e){if(!S._erro){S._erro=1;console.error('cena '+S.id+' ('+t.toFixed(1)+' s)',e)}}c.restore();
-  desenhaNarr(c);for(let i=0;i<FR.falas.length;i++)desenhaFala(c,FR.falas[i]);
+  const limpo=!!(m&&m.limpo);
+  if(!limpo){desenhaNarr(c);for(let i=0;i<FR.falas.length;i++)desenhaFala(c,FR.falas[i]);
   if(!S.semTitulo)titulo(c,t,S);if(!S.semMapa)mapa(c,t,S);chegada(c,t,S);
-  const a=t<.8?t/.8:t>S.dur-.7?(S.dur-t)/.7:1;iris(c,a,S.irisX,S.irisY);barra(c,t,S);
+  const a=t<.8?t/.8:t>S.dur-.7?(S.dur-t)/.7:1;iris(c,a,S.irisX,S.irisY);barra(c,t,S)}
   let L=FR.legenda;const f=FR.falas[FR.falas.length-1];
   if(f){const q=QUEM[f.who]||QUEM.heroi;L={quem:q.nome(),cor:q.cor,tx:q.tx,texto:f.text}}
   else if(FR.narr){const N=FR.narr,n=Math.min(N.lines.length,1+Math.floor(Math.max(0,t-N.t0-.3)/(N.o.passo||.85)));L={quem:null,texto:N.lines.slice(0,n).join(' ')}}
@@ -5254,10 +5484,12 @@ function play(o){return new Promise(res=>{const S=prepara(o),sec=$('#vj-cut'),st
 /* desenhar um momento parado (para os testes) */
 function still(id,t,o){const S=prepara(Object.assign({id},o||{}));if(!S)return null;const cv=$('#vj-cut-cv'),c=cv.getContext('2d'),sc=(o&&o.sc)||1;
   cv.width=CW*sc;cv.height=CH*sc;c.setTransform(sc,0,0,sc,0,0);return quadro(c,S,t,{cap:!!(o&&o.cap),fs:(o&&o.fs)||22})||{}}
+/* miniatura de uma cena num quadro qualquer (sem balões, títulos nem legendas): os cartões dos 7 passos */
+function miniatura(cv,id,t){const S=prepara({id});if(!S||!cv)return;const c=cv.getContext('2d'),sc=cv.width/CW;c.setTransform(sc,0,0,sc,0,0);quadro(c,S,t,{limpo:true});const f=FR;FR={t:0,S:{},falas:[],rects:[],narr:null,cap:false,fs:22,legenda:null};return f}
 /* lista das animações, para o ecrã onde se podem rever */
 const lista=()=>Object.keys(SC).map(id=>{const S=prepara({id});return{id,jogo:S.jogo,n:S.n||0,from:S.from||'',to:S.to||'',nome:S.nome||'',dur:S.dur}});
-return{play,still,ids:Object.keys(SC),SC,lista,parar:()=>{if(atual)atual.fim()}}})();
-VJ.cut=CUT.play;VJ.cutStill=CUT.still;VJ.cutIds=CUT.ids;VJ.cutLista=CUT.lista;VJ.cutParar=CUT.parar;
+return{play,still,miniatura,ids:Object.keys(SC),SC,lista,parar:()=>{if(atual)atual.fim()}}})();
+VJ.cut=CUT.play;VJ.cutMini=CUT.miniatura;VJ.cutStill=CUT.still;VJ.cutIds=CUT.ids;VJ.cutLista=CUT.lista;VJ.cutParar=CUT.parar;
 
 /* ----- arranque ----- */
 function boot(){
@@ -5307,6 +5539,15 @@ if(window.__T)window.__G={enterRoom,get game(){return GAME},renderRoom,buildLend
   document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>{if(b.getAttribute('aria-pressed')==='true')return;const L=b.dataset.lang;try{localStorage.setItem('vj-lang',L)}catch(e){}try{location.hash=L}catch(e){}location.reload()}));
   document.getElementById('b-home').onclick=()=>{const f=VJ.home[VJ.mod];if(f)f();else VJ.show('hub')};
   document.querySelectorAll('[data-hub]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');VJ.show(b.dataset.hub)}));
+  /* "Como se salva um cagarro?": um passo de cada vez, ou os 7 seguidos ("Saltar" passa ao passo seguinte) */
+  let corre=0;
+  const passos=async lista=>{const tok=++corre;
+    for(const n of lista){await VJ.cut({id:'salvar-'+n,mod:'hub'});if(tok!==corre)return;const on=document.querySelector('.screen.on');if(!on||on.id!=='vj-cut')return}
+    VJ.show('vj-salvar');const b=document.querySelector('[data-salvar="'+lista[lista.length-1]+'"]');if(b)try{b.focus({preventScroll:true})}catch(e){}};
+  VJ.salvarMini=()=>{if(!VJ.cutMini)return;const go=()=>document.querySelectorAll('[data-salvar]').forEach(b=>{try{VJ.cutMini(b.querySelector('canvas'),'salvar-'+b.dataset.salvar,+b.dataset.t)}catch(e){}});
+    go();try{document.fonts&&document.fonts.ready.then(go)}catch(e){}};
+  document.querySelectorAll('[data-salvar]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([+b.dataset.salvar])}));
+  const st=document.getElementById('vj-salvar-tudo');if(st)st.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([1,2,3,4,5,6,7])});
   VJ.onShow();
 })();
 
@@ -5806,6 +6047,23 @@ body[data-screen="vj-livro"] .rodape,body[data-screen="vj-cut"] .rodape{display:
 .cutcap b{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-radius:999px;padding:3px 10px;flex:none}
 .cutcap i{font-style:normal;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--hort);flex-basis:100%}
 .cutcap.so-leitor{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+/* "Como se salva um cagarro?" */
+.hubnav .btn.salvar{background:var(--colete);color:#1b2000;border-color:var(--colete)}
+#vj-salvar{max-width:1280px}
+.salvar-lead{max-width:52em;margin:4px 0 14px}
+ol.salvar-passos{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+ol.salvar-passos li{display:flex}
+ol.salvar-passos button{position:relative;display:flex;flex-direction:column;width:100%;text-align:left;font:inherit;color:inherit;background:var(--painel);border:1px solid var(--linha);border-radius:20px;padding:10px 10px 14px;cursor:pointer;transition:transform .15s,border-color .15s}
+ol.salvar-passos button:hover,ol.salvar-passos button:focus-visible{transform:translateY(-3px);border-color:var(--colete)}
+ol.salvar-passos canvas{width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:#0a1a2e;display:block}
+.sp-n{position:absolute;left:18px;top:18px;width:42px;height:42px;border-radius:50%;background:var(--colete);color:#1b2000;font-family:var(--f-display);font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(5,12,24,.4)}
+.sp-t{display:flex;flex-direction:column;gap:4px;padding:12px 6px 0;flex:1}
+.sp-t b{font-family:var(--f-display);font-size:22px;color:var(--bico);line-height:1.15}
+.sp-t span{font-size:16px;line-height:1.4}
+.sp-v{align-self:flex-start;margin:12px 6px 0;font-weight:700;font-size:14px;letter-spacing:1px;color:var(--hort)}
+.salvar-sos{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-bottom:12px}
+.salvar-sos .tel{font-family:var(--f-display);font-weight:900;font-size:36px;color:var(--bico)}
+@media (max-width:460px){ol.salvar-passos{grid-template-columns:1fr}}
 @media (max-width:1060px) and (min-width:861px){#hub .games{grid-template-columns:repeat(2,1fr)}}
 #hub .gcard .tag{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--hort);margin-top:2px}
 .gimg{position:relative;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 76% 22%,rgba(255,243,196,.5) 0 7%,transparent 8%),linear-gradient(#0b1f3a,#16406e 70%,#0c2f55 70%);display:flex;align-items:flex-end;justify-content:center;gap:4%}
@@ -5871,6 +6129,7 @@ body.playing .rodape{display:none}
     <div class="hpick" role="group" aria-label="Character"><button type="button" data-hero="f" aria-pressed="true"><img data-svg="kid-f-frente0" alt=""><span>Girl</span></button><button type="button" data-hero="m" aria-pressed="false"><img data-svg="kid-m-frente0" alt=""><span>Boy</span></button></div>
     <label class="hname">Name<input id="lj-hname" maxlength="14" autocomplete="off"></label></div>
   <div class="row hubnav">
+    <button class="btn salvar" data-hub="vj-salvar" type="button">How do you rescue a shearwater?</button>
     <button class="btn sec" data-hub="vj-how" type="button">How to play</button>
     <button class="btn sec" data-go="pedia" type="button">Cagarropedia</button>
     <button class="btn sec" data-hub="vj-stats" type="button">Statistics</button>
@@ -6136,6 +6395,23 @@ body.playing .rodape{display:none}
 </vj-script>
 </section>
 
+<section class="screen" id="vj-salvar">
+  <div class="row" style="justify-content:space-between;align-items:flex-end"><div><div class="eyebrow">SOS Cagarro campaign · the 7 steps</div><h2>How do you rescue a shearwater?</h2></div><button class="btn sec sm" data-hub="hub" type="button">Back</button></div>
+  <p class="lead salvar-lead">In October and November, bright lights dazzle young shearwaters (cagarros) and many fall to the ground. If you find one, follow these 7 steps, always with an adult. Tap a step to watch its animation.</p>
+  <div class="row"><button class="btn" id="vj-salvar-tudo" type="button">▶ Watch all 7 steps</button></div>
+  <ol class="salvar-passos">
+    <li><button type="button" data-salvar="1" data-t="7.2"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">1</span><span class="sp-t"><b>Approach slowly</b><span>Approach slowly, wearing gloves.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="2" data-t="6.6"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">2</span><span class="sp-t"><b>Cover it with a cloth</b><span>Calmly cover it with a cloth, coat, blanket or towel.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="3" data-t="7.4"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">3</span><span class="sp-t"><b>Hold it and put it in the box</b><span>Hold it by wrapping its whole body, without squeezing, and put it in a cardboard box.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="4" data-t="6.2"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">4</span><span class="sp-t"><b>Hand it in</b><span>Hand it to the Nature Wardens (Vigilantes da Natureza) or at a drop-off point (police: PSP or GNR; fire brigade: Bombeiros). If you can't, keep the box overnight in a quiet, dark place.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="5" data-t="7.4"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">5</span><span class="sp-t"><b>In the morning, by the sea</b><span>The next morning, release it near the sea by gently placing it on the ground. It will leave when it is ready.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="6" data-t="7"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">6</span><span class="sp-t"><b>Record the rescue</b><span>Record the rescue on the SOS Cagarro Portal.</span></span><span class="sp-v">▶ Watch</span></button></li>
+    <li><button type="button" data-salvar="7" data-t="8.6"><canvas width="480" height="270" aria-hidden="true"></canvas><span class="sp-n">7</span><span class="sp-t"><b>If in doubt, call</b><span>If in doubt, call the SOS Ambiente helpline.</span></span><span class="sp-v">▶ Watch</span></button></li>
+  </ol>
+  <div class="panel salvar-sos"><div><div class="eyebrow">SOS Ambiente helpline</div><div class="tel">800 292 800</div></div><p class="small muted">Free, 24 hours a day. From a foreign phone: +351 800 292 800. This is the real campaign helpline, outside the game.</p></div>
+  <p class="small muted">SOS Cagarro campaign steps, according to the Government of the Azores (Regional Directorate for Maritime Policies) and RTP Açores. This game is not an official campaign app.</p>
+</section>
+
 <section class="screen" id="vj-livro">
   <div class="row" style="justify-content:space-between"><div><div class="eyebrow">The book</div><h2>Voa, Jorginho!</h2></div><button class="btn sec sm" data-hub="hub" type="button">Back</button></div>
   <div class="livrobox"><iframe id="vj-livro-f" title="Book: Voa, Jorginho!" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
@@ -6201,6 +6477,7 @@ body.playing .rodape{display:none}
         <li>Record the rescue on the SOS Cagarro Portal.</li>
         <li>If in doubt, call the SOS Ambiente helpline.</li>
       </ol>
+      <button class="btn sm" data-hub="vj-salvar" type="button" style="margin-top:12px">▶ Watch the 7 steps as an animation</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="panel"><div class="eyebrow">SOS Ambiente helpline</div><div class="tel">800 292 800</div><p class="small muted">Free, 24 hours a day. From a foreign phone: +351 800 292 800. This is the real campaign helpline, outside the game.</p></div>
@@ -6581,6 +6858,7 @@ window.VJ=(()=>{'use strict';
     const was=document.body.getAttribute('data-screen');document.body.setAttribute('data-screen',id);if(id!=='vj-livro')VJ.livroFull(false,true);
     const f=document.getElementById('vj-livro-f');
     if(id==='vj-stats'&&VJ.statsAnim)setTimeout(VJ.statsAnim,30);
+    if(id==='vj-salvar'&&VJ.salvarMini)setTimeout(VJ.salvarMini,30);
     if(id==='vj-livro'&&f){if(!f.srcdoc){const src=document.getElementById('vj-livro-src').textContent;f.srcdoc=src.split('<\\/script').join('</'+'script')}setTimeout(()=>{try{f.focus()}catch(e){}},60)}
     if(was==='vj-livro'&&id!=='vj-livro'&&f){try{const d=f.contentDocument,rb=d&&d.getElementById('read');if(rb&&rb.getAttribute('aria-pressed')==='true')rb.click();f.contentWindow.speechSynthesis&&f.contentWindow.speechSynthesis.cancel()}catch(e){}}};
   VJ.show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);VJ.onShow()};
@@ -10557,6 +10835,198 @@ SC['vc-Fajã dos Cubres>Topo']=Object.assign(patrulhaBase('The SOS Ambiente help
     say('nina','We\'re on our way!',nx+6,EST.chao-134,6.4,7.6,{lado:-1});
     say('nina','The Ilhéu do Topo islet! Can you hear the shearwaters calling?',VX-50,EST.chao-170,14.4,17.8)}});
 
+/* ================= COMO SE SALVA UM CAGARRO: os 7 passos da campanha SOS Cagarro, em animação =================
+   Quem joga (a menina ou o menino da brigada) vai com o avô, porque as crianças andam sempre com um adulto.
+   Cada passo é uma cena curta. No ecrã «Como se salva um cagarro?» vêem-se uma a uma ou todas seguidas.
+   Os passos são os do Governo dos Açores e da RTP Açores (os mesmos da Cagarropédia). */
+QUEM.avo={nome:()=>'Grandpa',cor:'#c9995a',tx:'#2a1a00'};
+const AVO={g:'m',lanterna:true,semente:7,cores:{cabelo:'#d9d5c8',chapeu:'#5a3a24',pompom:null,casaco:'#7e3a31',casaco2:'#6a2f28',calca:'#39424e',calca2:'#2a2f38'}};
+function avo(c,x,y,h,o){kid(c,x,y,h,Object.assign({},AVO,o||{}))}
+const SY=478,LX=650;   /* onde assentam os pés, na calçada, e onde fica o candeeiro */
+const salvarBase=(n,nome,dur,mus,sons)=>({jogo:'salvar',n,nome,dur,mus,sons,eyebrow:'HOW TO RESCUE A SHEARWATER',titulo:['Step '+n+' of 7',nome],semMapa:true,semChegada:true,tituloFim:3.6,cor:K.colete});
+/* resumo do passo, no fim de cada cena, na caixa de texto do livro */
+const resumo=(L,S)=>narr(L,S.dur-3.4,S.dur-.25,{forte:[0],passo:.7,fs:24,maxw:560});
+
+/* a rua das Velas de noite, com o candeeiro aceso que encandeou o cagarro */
+function ruaSalvar(c,t,o){o=o||{};ruaVelas(c,t,{luz:.9,lampX:LX,lua:[150,92,38,{cara:o.cara||'sorri',olha:[1,.8]}]});
+  candeeiro(c,LX,416,1.4,{on:1,pala:o.pala||0})}
+/* o cagarro caído, encandeado: às voltas com a cabeça e estrelinhas à roda */
+function caido(c,t,x,o){o=o||{};ave(c,x,SY,94,{flip:true,cabeca:Math.sin(t*1.6)*.14,al:o.al});if(o.tonto!==false)tonto(c,x-24,SY-90,t,24,4)}
+/* um objeto num círculo, com o nome por baixo (como o pano, a caixa e a pala do capítulo 9 da Lenda) */
+function objeto(c,x,y,k,nome,fn){if(k<=0)return;c.save();c.translate(x,y);c.scale(k,k);circ(c,0,5,50,'rgba(5,12,24,.35)');circ(c,0,0,48,'#0d223a');
+  c.strokeStyle=K.colete;c.lineWidth=3;c.beginPath();c.arc(0,0,47,0,TAU);c.stroke();fn(c);
+  c.font='900 20px '+F_DISPLAY;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';c.lineWidth=6;c.strokeStyle=K.noite;c.strokeText(nome,0,68);c.fillStyle=K.espuma;c.fillText(nome,0,68);c.restore()}
+/* uma luva de borracha */
+function luva(c,x,y,s,rot,col){c.save();c.translate(x,y);c.rotate(rot||0);c.scale(s,s);
+  [-10,-3.5,3,9.5].forEach((fx,i)=>caixaR(c,fx-3.2,-27+Math.abs(i-1.6)*3.4,6.6,26,3.3,col));
+  c.save();c.translate(-13,6);c.rotate(-.75);caixaR(c,-4,-16,8,20,4,col);c.restore();
+  caixaR(c,-14,-8,28,30,9,col);caixaR(c,-15,19,30,11,3,mixh(col,'#000000',.22));c.restore()}
+/* o pano (uma toalha azul às riscas). k=0: pendurado nas mãos, a abanar · k=1: pousado por cima do cagarro, como uma tenda */
+function pano(c,x,y,w,k,t){c.save();c.translate(x,y);c.fillStyle='#9dbcff';c.beginPath();
+  if(k<=0){const h=w*.7,o=Math.sin(t*7)*5;c.moveTo(-w/2,0);c.lineTo(w/2,0);c.quadraticCurveTo(w/2+o,h*.5,w/2-o*.5,h);for(let i=5;i>=0;i--)c.lineTo(-w/2+w*i/5+o*.4,h+(i%2?7:0));c.quadraticCurveTo(-w/2+o,h*.5,-w/2,0)}
+  else{const h=w*.78*k;c.moveTo(-w/2,0);c.bezierCurveTo(-w/2,-h*.55,-w*.3,-h,0,-h);c.bezierCurveTo(w*.3,-h,w/2,-h*.55,w/2,0);for(let i=6;i>=0;i--)c.lineTo(-w/2+w*i/6,i%2?6:0)}
+  c.closePath();c.fill();c.save();c.clip();c.fillStyle='#6f9bff';for(let i=-3;i<=3;i++)c.fillRect(i*w/7-5,-w,10,w*2);c.restore();c.restore()}
+/* ondas de quem toca: o telefone a tocar */
+function ondas(c,x,y,t,col){for(let i=0;i<3;i++){const k=(t*1.6+i/3)%1;c.save();c.globalAlpha=(1-k)*.8;c.strokeStyle=col||K.bico;c.lineWidth=4;c.lineCap='round';
+  [-1,1].forEach(d=>{c.beginPath();c.arc(x,y,20+k*34,d>0?-.6:Math.PI-.6,d>0?.6:Math.PI+.6);c.stroke()});c.restore()}}
+
+/* 1 · Aproxima-te devagar, de luvas */
+SC['salvar-1']=Object.assign(salvarBase(1,'Approach slowly',13.6,{tema:'misterio',tom:57,bpm:84,voz:'flauta',esc:'dorico'},
+  [[1,'passos'],[2.8,'passos'],[4.4,'passos'],[2.2,'cagarro'],[5.8,'brilho'],[8.8,'passos'],[10.2,'passos']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const hx=keys([[.6,-70],[5.6,330,E.out],[8.8,330],[11,490,E.io]],t),ax=keys([[.6,-190],[5.8,190,E.out]],t),
+      anda=(t>.6&&t<5.5)||(t>8.8&&t<10.9),devagar=t>8.8;
+    caido(c,t,LX);
+    avo(c,ax,SY,176,t>.6&&t<5.7?{anda:t*4.6}:{view:'frente',fala:t>5.8&&t<8.6,olha:[1,0]});
+    kid(c,hx,SY,124,anda?{anda:t*(devagar?3:5.4),braco:devagar?-34:null,braco2:devagar?-26:null}:{view:'frente',olha:[1,-1],espanto:t<7,bracosCima:t>5.8&&t<6.6?.45:0});
+    objeto(c,hx+96,SY-112,E.back(seg(t,5.8,6.3))*(1-E.inn(seg(t,8.4,8.8))),'Gloves',cc=>{luva(cc,-12,2,1.15,-.25,'#f6c431');luva(cc,13,4,1.15,.3,'#ffb03a')});
+    say('heroi','Look, Grandpa! A shearwater on the ground by the streetlamp!',hx+10,SY-140,1.8,5);
+    say('avo','Gloves first. And no running or shouting!',ax+10,SY-190,5.8,8.6,{lado:1});
+    say('heroi','Nice and slow…',hx+10,SY-140,8.9,10.3);
+    resumo(['Approach slowly,','with your gloves on.'],S)}});
+
+/* 2 · Cobre-o com um pano */
+SC['salvar-2']=Object.assign(salvarBase(2,'Cover it with a cloth',13,{tema:'embalo',tom:60,bpm:80,voz:'flauta'},
+  [[3.6,'shade'],[4.6,'pop'],[5.6,'acorde']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const hx=520,voa=seg(t,3.6,4.6),pousa=t>=4.6,k=E.back(seg(t,4.6,5.2));
+    if(!pousa)caido(c,t,LX);
+    else{pano(c,LX-4,SY+2,124,Math.max(.2,k),t);if(t>5.6)zzz(c,LX+44,SY-96,t,1.1)}
+    avo(c,300,SY,176,{view:'frente',fala:t>.8&&t<3.4,olha:[1,0]});
+    kid(c,hx,SY,124,{braco:t>2.4&&t<4.8?-78:null,braco2:t>2.4&&t<4.8?-66:null,boca:t>5.6&&t<8.4?'grande':null,fala:t>5.6&&t<8.4});
+    /* o pano sai das mãos e voa até ao cagarro */
+    if(t>2.4&&!pousa){const px=lerp(hx+44,LX-4,E.io(voa)),py=lerp(SY-80,SY-84,voa)-Math.sin(voa*Math.PI)*70;
+      if(voa<=0)pano(c,px,py,70,0,t);else{c.save();c.translate(px,py);c.rotate(Math.sin(voa*Math.PI)*.2);pano(c,0,0,lerp(70,124,voa),0,t*1.6);c.restore()}}
+    say('avo','Gently put a cloth over it: in the dark, it calms down.',320,SY-190,.8,3.4,{lado:1});
+    say('heroi','There! It\'s calmer now.',hx+10,SY-140,5.6,8.4);
+    resumo(['Gently cover it with a cloth,','a coat, a blanket or a towel.'],S)}});
+
+/* 3 · Segura-o e põe-no numa caixa */
+SC['salvar-3']=Object.assign(salvarBase(3,'Hold it and put it in the box',14.4,{tema:'jorginho',var:2,tom:62,bpm:92,voz:'caixa'},
+  [[1.8,'rola'],[4.6,'pop'],[7,'passos'],[9.4,'brilho'],[9.6,'cagarro']]),{
+  draw(c,t,S){ruaSalvar(c,t,{});
+    const bx=430,poe=E.io(seg(t,1.2,2.2)),hx=keys([[6.4,560],[8.4,486,E.io]],t),vira=t>6.4,ergue=E.io(seg(t,4.4,5.6)),dentro=t>=9.4,
+      mx=vira?hx-30:hx+32,my=SY-62,baixa=E.io(seg(t,8.5,9.4));
+    /* a caixa: das mãos do avô para o chão */
+    const ax=keys([[0,330],[1.2,350,E.io]],t);
+    if(t>1.2)pup(c,dentro?'caixa-cheia':'caixa',lerp(ax+40,bx,poe),lerp(SY-48,SY+2,poe),dentro?78:70,{});
+    avo(c,ax,SY,176,t<2.2?{leva:'caixa'}:{view:'frente',fala:t>2.4&&t<4.6,olha:[1,0]});
+    /* o cagarro tapado: do chão para as mãos e das mãos para a caixa */
+    if(!dentro){let px=LX-4,py=SY+2;if(ergue>0){px=lerp(LX-4,mx,ergue);py=lerp(SY+2,my+40,ergue)}if(t>8.5){px=lerp(mx,bx,baixa);py=lerp(my+40,SY-26,baixa)}
+      pano(c,px,py,lerp(124,84,ergue),1,t)}
+    kid(c,hx,SY,124,{flip:vira,anda:t>6.4&&t<8.4?t*4:null,braco:t>4.2&&t<9.4?-74:null,braco2:t>4.2&&t<9.4?-64:null,fala:t>4.6&&t<7,boca:t>9.6&&t<11?'grande':null});
+    pop(c,'In the box!',bx,SY-150,48,9.6,11.6,{rot:-5,cor:K.colete,sombra:K.canal});
+    say('avo','The cardboard box has little holes so it can breathe.',ax+10,SY-190,2.4,4.6,{lado:1});
+    say('heroi','Both hands around its body, without squeezing.',hx+10,SY-140,4.7,7.6,{lado:-1});
+    resumo(['Hold it around its whole body,','without squeezing, and put it in a box.'],S)}});
+
+/* 4 · Entrega-o (ou guarda a caixa num sítio calmo e escuro, até de manhã) */
+SC['salvar-4']=Object.assign(salvarBase(4,'Hand it in',17.2,{tema:'passeio',tom:58,bpm:96,voz:'caixa'},
+  [[.8,'passos'],[2.4,'passos'],[5.8,'rola'],[6.6,'acorde'],[9,'brilho'],[10,'pop']]),{
+  draw(c,t,S){const T=9,dentro=t>=T;
+    if(!dentro){const A=AMB.noite,px=640;
+      ceu(c,A,RUA_Y);estrelas(c,t,.9,RUA_Y-90,19);lua(c,150,92,38,t,{olha:[1,.8]});pico(c,260,RUA_Y,.9,A.far);
+      /* o posto dos Vigilantes da Natureza, com o jipe do Parque Natural à porta */
+      casa(c,px-140,RUA_Y,300,124,{cor:A.casa,n:3,lit:[1,1,1],telha:'#3d6f4c',th:26,portaCor:'#5a8f6b'});caixaR(c,px-130,RUA_Y-124-26+30,280,26,6,'#5a8f6b');
+      c.font='900 15px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='center';c.textBaseline='middle';c.fillText('NATURE WARDENS',px+10,RUA_Y-124-26+44);
+      casa(c,-20,RUA_Y,150,96,{cor:A.casa,lit:[1,0]});casa(c,850,RUA_Y,140,90,{cor:A.casa,lit:[0,1]});calcada(c,RUA_Y,0,A);
+      jipe(c,850,SY-6,t,{noite:true,flip:true});
+      const hx=keys([[.6,-60],[3.4,420,E.out]],t),ax=keys([[.6,-180],[3.6,250,E.out]],t),da2=E.io(seg(t,5.6,6.6));
+      gente(c,'vigilante',600,SY+2,160,{view:'frente',bracosCima:t>6.6&&t<7.4?.5:0,fala:t>6.8&&t<8.8,semente:4,olha:[-1,0]});
+      if(da2>0)pup(c,'caixa-cheia',lerp(hx+40,600,da2),SY-30-Math.sin(da2*Math.PI)*40-da2*14,lerp(42,60,da2),{sombra:false});
+      avo(c,ax,SY,176,t<3.6?{anda:t*4.6}:{});
+      kid(c,hx,SY,124,t<3.4?{anda:t*5,leva:'caixa-cheia'}:{leva:da2>0?null:'caixa-cheia',braco:da2>0&&da2<1?-70:null,fala:t>3.6&&t<5.6});
+      /* outros pontos de recolha */
+      const kp=env(t,1.2,T,.4,.3);if(kp>0){const x=CW-312,y=64;c.save();c.globalAlpha=kp;painel(c,x,y,288,104,18);c.font='700 12px '+F_BODY;c.fillStyle=K.hort;c.textAlign='left';c.textBaseline='alphabetic';espacado(c,'OR AT A DROP-OFF POINT',x+18,y+28,1.8);
+        let qx=x+18;['POLICE','GNR','Fire station'].forEach(n=>{c.font='900 19px '+F_DISPLAY;const w=c.measureText(n).width+26;caixaR(c,qx,y+46,w,38,19,K.colete);c.fillStyle='#1b2000';c.textBaseline='middle';c.fillText(n,qx+13,y+66);qx+=w+8});c.restore()}
+      say('heroi','We\'ve brought a shearwater!',hx+10,SY-140,3.6,5.6);
+      say('vigilante','Thank you! It will stay safe with us until morning.',600,SY-170,6.8,8.8,{lado:1})}
+    else{/* dentro de casa: a caixa num canto calmo e escuro, à espera da manhã */
+      const s=t-T;c.fillStyle='#14233a';c.fillRect(0,0,CW,CH);c.fillStyle='#0f1b2c';c.fillRect(0,400,CW,CH-400);c.fillStyle='#1a2c47';c.fillRect(0,394,CW,8);
+      /* a janela com a Lua */
+      caixaR(c,610,80,230,190,10,'#2a3a55');c.save();c.beginPath();c.rect(624,94,202,162);c.clip();ceu(c,AMB.noite,256);estrelas(c,t,1,240,27);lua(c,730,170,34,t,{cara:'dorme'});c.restore();
+      c.fillStyle='#2a3a55';c.fillRect(722,94,6,162);c.fillRect(624,172,202,6);
+      c.globalAlpha=.12;c.fillStyle=K.lua;c.beginPath();c.moveTo(624,256);c.lineTo(826,256);c.lineTo(700,470);c.lineTo(420,470);c.closePath();c.fill();c.globalAlpha=1;
+      pup(c,'caixa-cheia',330,SY,88,{});zzz(c,370,SY-96,t,1.1);
+      avo(c,540,SY,176,{view:'frente',fala:s>1.2&&s<4,olha:[-1,0],luz:0});
+      kid(c,170,SY,124,{view:'frente',olha:[1,0],luz:0});
+      pop(c,'Shhh…',330,190,46,.6,3.4,{rot:-4,cor:K.hort,sombra:K.breu});
+      say('avo','If we can\'t hand it in, the box stays here, in a calm, dark corner.',560,SY-190,1.2,4.2,{lado:-1});
+      resumo(['If you can\'t hand it in, keep','the box somewhere calm and dark','during the night.'],S)}
+    passagem(c,t,T,.45,330,SY-60)}});
+
+/* 5 · De manhã, liberta-o junto ao mar */
+SC['salvar-5']=Object.assign(salvarBase(5,'In the morning, by the sea',16,{tema:'mar',tom:62,bpm:100,voz:'flauta',esc:'lidio'},
+  [[0,'mar',{d:16,v:.05}],[.8,'passos'],[2.2,'passos'],[3.8,'rola'],[5.4,'cagarro'],[8.2,'voou'],[8.6,'cagarro'],[9.2,'brilho']]),{
+  draw(c,t,S){const A=ambKeys([[0,AMB.aurora],[9,ambMix(AMB.aurora,AMB.dia,.7)],[16,AMB.dia]],t),hy=300;
+    ceu(c,A,hy);sol(c,180,hy+40-E.out(seg(t,0,10))*150,34,t,1);nuvens(c,t,A.nuv,{n:3,y:60,dy:40,a:.7,s:.7});pico(c,660,hy+2,.6,A.far);
+    mar(c,hy,t,A,0,420);
+    /* a costa: rochas de basalto e erva, mesmo ao pé do mar */
+    terra(c,404,0,A.g2,10,220,3);c.fillStyle=A.g1;c.fillRect(0,430,CW,CH-430);terra(c,446,40,A.g1,8,160,6);
+    rocha(c,80,430,110,40);rocha(c,840,428,130,46);rocha(c,700,440,70,24);hort(c,40,520,1.2,3);hort(c,920,522,1.1,5);
+    const bx=520,hx=keys([[.6,-60],[3.2,410,E.out]],t),ax=keys([[.6,-190],[3.4,240,E.out]],t),poe=E.io(seg(t,3.6,4.4)),
+      sai=E.out(seg(t,5,6.4)),voo=seg(t,8,12.4);
+    avo(c,ax,SY,176,t<3.4?{anda:t*4.6}:{view:'frente',fala:t>4.6&&t<7.8,olha:[1,0]});
+    if(t<4.4)kid(c,hx,SY,124,t<3.2?{anda:t*5,leva:'caixa'}:{braco:-70,braco2:-60});
+    else kid(c,hx,SY,124,{view:t>8?'frente':'lado',acena:t>8.4&&t<12,fala:t>8.6&&t<11.6,boca:t>8.4?'grande':null,olha:[1,-1]});
+    pup(c,'caixa',lerp(hx+40,bx,poe),lerp(SY-36,SY+2,poe),lerp(48,70,poe),{});
+    /* o cagarro sai da caixa, bate as asas e voa para o mar */
+    if(t>5&&t<8.2)ave(c,lerp(bx,610,sai),SY-(1-sai)*30-arco(t,5,6.4,30),lerp(40,96,sai),{asa:t>6.6?(Math.sin(t*16)+1)*.45:0,cabeca:t>6.6?-.1:0});
+    if(voo>0&&voo<1)cagarro(c,lerp(620,1060,E.inn(voo)),lerp(SY-60,120,E.out(voo)),lerp(120,150,voo),{bate:t*11,rot:-.25+voo*.2});
+    pop(c,'HE FLEW!',720,200,62,8.6,11.8,{rot:-5,cor:K.espuma,sombra:K.canal});
+    say('avo','In the morning, by the sea. Never at night!',ax+10,SY-190,4.6,7.8,{lado:1});
+    say('heroi','Bye, shearwater! Safe travels!',hx+10,SY-140,8.6,11.6);
+    resumo(['The next morning, release it by the sea:','set it on the ground and let it go.'],S)}});
+
+/* 6 · Regista o salvamento no Portal SOS Cagarro */
+SC['salvar-6']=Object.assign(salvarBase(6,'Record the rescue',12.6,{tema:'festa',tom:64,bpm:108,voz:'caixa'},
+  [[2,'pop'],[3.2,'pop'],[4.4,'pop'],[5.6,'pop'],[6.6,'brilho'],[6.8,'acorde']]),{
+  draw(c,t,S){const A=AMB.dia;
+    c.fillStyle='#f4ead6';c.fillRect(0,0,CW,CH);c.fillStyle='#e3d5ba';c.fillRect(0,402,CW,CH-402);c.fillStyle='#c9995a';c.fillRect(0,396,CW,8);
+    /* a janela, com o mar e o Pico */
+    caixaR(c,40,70,300,200,10,'#c9b48f');c.save();c.beginPath();c.rect(54,84,272,172);c.clip();ceu(c,A,200);sol(c,280,124,22,t,1);pico(c,160,202,.42,A.far);mar(c,200,t,A,0,260);c.restore();
+    c.fillStyle='#c9b48f';c.fillRect(186,84,6,172);
+    avo(c,120,SY,176,{view:'frente',fala:t>7.2&&t<9.6,olha:[1,0]});
+    kid(c,270,SY,124,{view:'frente',fala:t>.8&&t<3.6,bracosCima:t>6.8&&t<7.8?.6:0,boca:t>6.6&&t<8?'grande':null,olha:[1,-.4]});
+    /* o tablet com o formulário do portal */
+    const k=E.back(seg(t,.6,1.2)),x=430,y=64,w=470,h=380;
+    c.save();c.translate(x+w/2,y+h/2);c.scale(k,k);c.translate(-x-w/2,-y-h/2);
+    caixaR(c,x-14,y-14,w+28,h+28,30,'#2a2f38');caixaR(c,x,y,w,h,18,K.espuma);caixaR(c,x,y,w,58,18,'#5a8f6b');c.fillStyle='#5a8f6b';c.fillRect(x,y+34,w,24);
+    c.font='900 24px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='left';c.textBaseline='middle';c.fillText('SOS Cagarro Portal',x+22,y+30);
+    const F=[['Island','São Jorge',1.6],['Place','Velas',2.8],['Shearwaters','1',4],['Status','Released by the sea',5.2]];
+    F.forEach((q,i)=>{const fy=y+82+i*62,n=Math.floor(clamp((t-q[2])/.8,0,1)*q[1].length);c.font='700 14px '+F_BODY;c.fillStyle='#5a6170';c.textBaseline='alphabetic';c.fillText(q[0],x+24,fy+14);
+      caixaR(c,x+22,fy+22,w-44,34,8,'#ffffff');c.strokeStyle=t>q[2]&&t<q[2]+1.1?K.porta:'#c9ccd3';c.lineWidth=2;rr(c,x+22,fy+22,w-44,34,8);c.stroke();
+      c.font='700 18px '+F_BODY;c.fillStyle=K.noite;c.textBaseline='middle';const tx=q[1].slice(0,n);c.fillText(tx,x+34,fy+40);
+      if(t>q[2]&&t<q[2]+1.1&&Math.sin(t*12)>0){const cw=c.measureText(tx).width;c.fillRect(x+36+cw,fy+29,2,22)}});
+    const env2=t>6.4,bt=y+h-56;caixaR(c,x+w-170,bt,148,40,20,env2?'#5a8f6b':K.porta);c.font='900 18px '+F_DISPLAY;c.fillStyle=K.espuma;c.textAlign='center';c.fillText(env2?'✓ Sent':'Send',x+w-96,bt+21);
+    c.restore();
+    pop(c,'Recorded!',x+w/2,y+h+52,46,6.6,9.6,{rot:-4,cor:K.colete,sombra:K.canal});
+    say('heroi','Now we record the rescue on the portal.',290,SY-140,.8,3.6,{lado:-1});
+    say('avo','That way, the campaign knows how many shearwaters were saved.',140,SY-190,7.2,9.6,{lado:1});
+    resumo(['Record the rescue','on the SOS Cagarro Portal.'],S)}});
+
+/* 7 · Na dúvida, liga para a Linha SOS Ambiente */
+SC['salvar-7']=Object.assign(salvarBase(7,'If in doubt, call',15.4,{tema:'jorginho',var:3,tom:60,bpm:100,voz:'corda'},
+  [[.8,'susto'],[6.2,'telefone'],[7.4,'telefone'],[8.6,'pop'],[12.4,'acorde'],[12.6,'brilho']]),{
+  draw(c,t,S){ruaSalvar(c,t,{cara:t<6?'espanto':'sorri'});
+    caido(c,t,LX,{tonto:true});
+    /* um ponto de interrogação por cima do cagarro: está ferido? */
+    if(t>.8&&t<6.2){c.save();c.globalAlpha=env(t,.8,6.2);c.font='900 54px '+F_DISPLAY;c.fillStyle=K.bico;c.textAlign='center';c.fillText('?',LX-10+Math.sin(t*3)*4,SY-128);c.restore()}
+    avo(c,250,SY,176,{view:'frente',fala:t>3.6&&t<6.2,olha:[1,0]});
+    kid(c,440,SY,124,{view:'frente',fala:t>.9&&t<3.6,espanto:t<3.6,olha:[1,-1],acena:t>6.2&&t<11});
+    /* o telefone com o número da Linha SOS Ambiente */
+    const kt=E.back(seg(t,6,6.5))*(1-seg(t,12.2,12.6));
+    if(kt>0){const tx=520,ty=180;c.save();c.translate(tx,ty+(t<8.4?Math.sin(t*38)*2.4:0));c.scale(kt,kt);
+      painel(c,-170,-58,340,116,24);caixaR(c,-150,-38,48,76,10,K.colete);caixaR(c,-143,-28,34,48,4,K.noite);circ(c,-126,28,4.4,K.noite);
+      if(t<8.4)ondas(c,-126,-2,t,K.colete);
+      c.font='700 13px '+F_BODY;c.fillStyle=K.hort;c.textAlign='left';c.textBaseline='alphabetic';espacado(c,'SOS AMBIENTE HELPLINE',-84,-22,1.6);
+      c.font='900 34px '+F_DISPLAY;c.fillStyle=K.bico;c.fillText('800 292 800',-84,14);c.font='700 14px '+F_BODY;c.fillStyle='#d5e1f5';c.fillText('Free · 24 hours',-84,38);c.restore()}
+    pop(c,'Save a shearwater, make a friend!',CW/2,250,38,12.4,15.2,{rot:-3,cor:K.bico,sombra:K.noite});
+    say('heroi','Grandpa, what if it\'s hurt? I don\'t know what to do!',450,SY-140,.9,3.6);
+    say('avo','If in doubt, we call the SOS Ambiente helpline.',270,SY-190,3.6,6.2,{lado:1});
+    say('sos','SOS Ambiente helpline, good evening! Tell us where the shearwater is.',600,262,8.6,11.6,{lado:-1,baixo:true});
+    resumo(['If in doubt, call the','SOS Ambiente helpline: 800 292 800.'],S)}});
+
 /* ================= leitor: mostra uma cena no ecrã ================= */
 let atual=null;
 /* junta à cena o que o jogo sabe: de onde vem, para onde vai e em que nível ou noite está */
@@ -10573,9 +11043,10 @@ function prepara(o){const base=SC[o.id];if(!base)return null;const S=Object.assi
 function quadro(c,S,t,m){FR={t,S,falas:[],rects:[],narr:null,cap:!!(m&&m.cap),fs:(m&&m.fs)||22,legenda:null,mapaOn:false};
   const J=S.mapa||[.9,S.dur-3.3];FR.mapaOn=!S.semMapa&&!FR.cap&&t>J[0]+.1&&t<J[1]-.1;
   c.save();try{S.draw(c,t,S)}catch(e){if(!S._erro){S._erro=1;console.error('cena '+S.id+' ('+t.toFixed(1)+' s)',e)}}c.restore();
-  desenhaNarr(c);for(let i=0;i<FR.falas.length;i++)desenhaFala(c,FR.falas[i]);
+  const limpo=!!(m&&m.limpo);
+  if(!limpo){desenhaNarr(c);for(let i=0;i<FR.falas.length;i++)desenhaFala(c,FR.falas[i]);
   if(!S.semTitulo)titulo(c,t,S);if(!S.semMapa)mapa(c,t,S);chegada(c,t,S);
-  const a=t<.8?t/.8:t>S.dur-.7?(S.dur-t)/.7:1;iris(c,a,S.irisX,S.irisY);barra(c,t,S);
+  const a=t<.8?t/.8:t>S.dur-.7?(S.dur-t)/.7:1;iris(c,a,S.irisX,S.irisY);barra(c,t,S)}
   let L=FR.legenda;const f=FR.falas[FR.falas.length-1];
   if(f){const q=QUEM[f.who]||QUEM.heroi;L={quem:q.nome(),cor:q.cor,tx:q.tx,texto:f.text}}
   else if(FR.narr){const N=FR.narr,n=Math.min(N.lines.length,1+Math.floor(Math.max(0,t-N.t0-.3)/(N.o.passo||.85)));L={quem:null,texto:N.lines.slice(0,n).join(' ')}}
@@ -10624,10 +11095,12 @@ function play(o){return new Promise(res=>{const S=prepara(o),sec=$('#vj-cut'),st
 /* desenhar um momento parado (para os testes) */
 function still(id,t,o){const S=prepara(Object.assign({id},o||{}));if(!S)return null;const cv=$('#vj-cut-cv'),c=cv.getContext('2d'),sc=(o&&o.sc)||1;
   cv.width=CW*sc;cv.height=CH*sc;c.setTransform(sc,0,0,sc,0,0);return quadro(c,S,t,{cap:!!(o&&o.cap),fs:(o&&o.fs)||22})||{}}
+/* miniatura de uma cena num quadro qualquer (sem balões, títulos nem legendas): os cartões dos 7 passos */
+function miniatura(cv,id,t){const S=prepara({id});if(!S||!cv)return;const c=cv.getContext('2d'),sc=cv.width/CW;c.setTransform(sc,0,0,sc,0,0);quadro(c,S,t,{limpo:true});const f=FR;FR={t:0,S:{},falas:[],rects:[],narr:null,cap:false,fs:22,legenda:null};return f}
 /* lista das animações, para o ecrã onde se podem rever */
 const lista=()=>Object.keys(SC).map(id=>{const S=prepara({id});return{id,jogo:S.jogo,n:S.n||0,from:S.from||'',to:S.to||'',nome:S.nome||'',dur:S.dur}});
-return{play,still,ids:Object.keys(SC),SC,lista,parar:()=>{if(atual)atual.fim()}}})();
-VJ.cut=CUT.play;VJ.cutStill=CUT.still;VJ.cutIds=CUT.ids;VJ.cutLista=CUT.lista;VJ.cutParar=CUT.parar;
+return{play,still,miniatura,ids:Object.keys(SC),SC,lista,parar:()=>{if(atual)atual.fim()}}})();
+VJ.cut=CUT.play;VJ.cutMini=CUT.miniatura;VJ.cutStill=CUT.still;VJ.cutIds=CUT.ids;VJ.cutLista=CUT.lista;VJ.cutParar=CUT.parar;
 
 /* ----- arranque ----- */
 function boot(){
@@ -10677,6 +11150,15 @@ if(window.__T)window.__G={enterRoom,get game(){return GAME},renderRoom,buildLend
   document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>{if(b.getAttribute('aria-pressed')==='true')return;const L=b.dataset.lang;try{localStorage.setItem('vj-lang',L)}catch(e){}try{location.hash=L}catch(e){}location.reload()}));
   document.getElementById('b-home').onclick=()=>{const f=VJ.home[VJ.mod];if(f)f();else VJ.show('hub')};
   document.querySelectorAll('[data-hub]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');VJ.show(b.dataset.hub)}));
+  /* "How do you rescue a shearwater?": um passo de cada vez, ou os 7 seguidos ("Jump" passa ao passo seguinte) */
+  let corre=0;
+  const passos=async lista=>{const tok=++corre;
+    for(const n of lista){await VJ.cut({id:'salvar-'+n,mod:'hub'});if(tok!==corre)return;const on=document.querySelector('.screen.on');if(!on||on.id!=='vj-cut')return}
+    VJ.show('vj-salvar');const b=document.querySelector('[data-salvar="'+lista[lista.length-1]+'"]');if(b)try{b.focus({preventScroll:true})}catch(e){}};
+  VJ.salvarMini=()=>{if(!VJ.cutMini)return;const go=()=>document.querySelectorAll('[data-salvar]').forEach(b=>{try{VJ.cutMini(b.querySelector('canvas'),'salvar-'+b.dataset.salvar,+b.dataset.t)}catch(e){}});
+    go();try{document.fonts&&document.fonts.ready.then(go)}catch(e){}};
+  document.querySelectorAll('[data-salvar]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([+b.dataset.salvar])}));
+  const st=document.getElementById('vj-salvar-tudo');if(st)st.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([1,2,3,4,5,6,7])});
   VJ.onShow();
 })();
 
