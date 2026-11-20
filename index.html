@@ -423,7 +423,8 @@ body{font-size:17px}
   #hub .hero{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:32px;margin-bottom:0}
   #hub .hero .lead{max-width:36em}
   #vj-sj{position:relative!important;top:0!important;display:block;width:100vw!important;max-width:none!important;height:clamp(180px,15vw,280px)!important;margin:-40px 0 calc(clamp(180px,15vw,280px) * -.22 - 20px)}
-  #hub .games{gap:20px;order:2}
+  #hub .games{gap:20px;order:3}
+  #hub .salvar-cta{order:2}
   /* o início usa a largura do ecrã; o balão fica ao lado do Jorginho (sem lhe tapar a cabeça) e o Jorginho pousa na ilha */
   #hub{max-width:min(2160px,calc(100vw - 96px))}
   #hub .hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
@@ -434,7 +435,7 @@ body{font-size:17px}
   #hub .bubble::after{content:'';position:absolute;right:-12px;bottom:6px;border:8px solid transparent;border-left:14px solid var(--espuma);border-right:0}
   #hub .hero{order:0}
   #vj-sj{order:1}
-  #hub .hubfoot{order:3}
+  #hub .hubfoot{order:4}
   .hubfoot .hubnav{margin:0;background:var(--painel);border:1px solid var(--linha);border-radius:22px;padding:16px}
 }
 .hubfoot{display:flex;flex-direction:column;gap:20px}
@@ -486,7 +487,19 @@ body[data-screen="vj-livro"] .rodape,body[data-screen="vj-cut"] .rodape{display:
 .cutcap i{font-style:normal;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--hort);flex-basis:100%}
 .cutcap.so-leitor{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 /* "Como se salva um cagarro?" */
-.hubnav .btn.salvar{background:var(--colete);color:#1b2000;border-color:var(--colete)}
+.salvar-cta{display:grid;grid-template-columns:minmax(220px,360px) minmax(0,1fr) auto;align-items:center;gap:18px 30px;background:linear-gradient(120deg,rgba(217,240,62,.2),rgba(13,34,58,.95) 48%);border:3px solid var(--colete);border-radius:26px;padding:16px 30px 16px 16px;box-shadow:0 0 0 7px rgba(217,240,62,.12),0 14px 34px rgba(5,12,24,.5);margin:0 0 22px}
+.sc-vid{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:18px;overflow:hidden;background:#0a1a2e;cursor:pointer}
+.sc-vid canvas{width:100%;height:100%;display:block}
+.sc-vid:focus-visible{outline:3px solid var(--colete);outline-offset:3px}
+.sc-passo{position:absolute;left:10px;top:10px;background:var(--colete);color:#1b2000;font-weight:700;font-size:13px;padding:4px 11px;border-radius:999px}
+.sc-txt h2{font-size:clamp(30px,3.2vw,48px);line-height:1.05;color:var(--colete);margin:6px 0 8px}
+.sc-txt p{font-size:19px;line-height:1.4;max-width:38em;margin:0}
+.sc-dots{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:14px 0 0;padding:0}
+.sc-dots li{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;font-size:16px;background:rgba(157,188,255,.16);color:var(--hort);transition:background .3s,color .3s,transform .3s}
+.sc-dots li.on{background:var(--colete);color:#1b2000;transform:scale(1.15)}
+.salvar-cta .sc-btn{background:var(--colete);border-color:var(--colete);color:#1b2000;font-size:22px;white-space:nowrap}
+@media (max-width:1150px){.salvar-cta{grid-template-columns:minmax(200px,320px) minmax(0,1fr)}.salvar-cta .sc-btn{grid-column:1/-1;justify-self:center}}
+@media (max-width:640px){.salvar-cta{grid-template-columns:1fr;padding:14px;text-align:center}.sc-txt p{font-size:17px}.sc-dots{justify-content:center}.sc-dots li{width:28px;height:28px;font-size:14px}}
 #vj-salvar{max-width:1280px}
 .salvar-lead{max-width:52em;margin:4px 0 14px}
 ol.salvar-passos{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
@@ -557,6 +570,12 @@ body.playing .rodape{display:none}
       <img class="j" data-svg="jorginho-frente" alt="Jorginho, um cagarro juvenil visto de frente, com penugem na cabeça e bico amarelo">
     </div>
   </div>
+  <div class="salvar-cta">
+    <button class="sc-vid" type="button" data-hub="vj-salvar" aria-label="Como se salva um cagarro? Ver os 7 passos"><canvas id="vj-salvar-anim" width="640" height="360" aria-hidden="true"></canvas><span class="sc-passo" id="vj-salvar-passo">Passo 1 de 7</span></button>
+    <div class="sc-txt"><div class="eyebrow">Encontraste um cagarro caído?</div><h2>Como se salva um cagarro?</h2><p>Os 7 passos da campanha SOS Cagarro, em animação: luvas, um pano, uma caixa… e, de manhã, junto ao mar!</p>
+      <ol class="sc-dots" aria-hidden="true"><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li></ol></div>
+    <button class="btn sc-btn" type="button" data-hub="vj-salvar">▶ Ver os 7 passos</button>
+  </div>
   <div class="games">
     <div class="gcard g-c"><div class="gimg" aria-hidden="true"><img data-svg="nina" alt=""><img class="ave" data-svg="caixa-cheia" alt=""></div><div><h3>Voa, Jorginho!</h3><div class="tag">patrulha noturna · 1 a 4 jogadores</div><p>Patrulha noturna. Apaga as luzes da vila, recolhe os cagarros caídos, decide bem durante a noite e liberta-os de manhã. Ganha a brigada com mais cagarros a salvo.</p><button class="btn" type="button" data-go="setup">Jogar</button></div></div>
     <div class="gcard g-a"><canvas id="lj-prev-lenda" width="300" height="244" aria-hidden="true"></canvas><div><h3>A Lenda do Jorginho</h3><div class="tag">aventura vista de cima</div><p>Sala a sala, freguesia a freguesia, do Topo às Velas. Salva os cagarros caídos, põe palas nos candeeiros, encontra os segredos e salva o Jorginho.</p><button class="btn" type="button" data-game="lenda">Jogar</button></div></div>
@@ -568,7 +587,6 @@ body.playing .rodape{display:none}
     <div class="hpick" role="group" aria-label="Personagem"><button type="button" data-hero="f" aria-pressed="true"><img data-svg="kid-f-frente0" alt=""><span>Menina</span></button><button type="button" data-hero="m" aria-pressed="false"><img data-svg="kid-m-frente0" alt=""><span>Menino</span></button></div>
     <label class="hname">Nome<input id="lj-hname" maxlength="14" autocomplete="off"></label></div>
   <div class="row hubnav">
-    <button class="btn salvar" data-hub="vj-salvar" type="button">Como se salva um cagarro?</button>
     <button class="btn sec" data-hub="vj-how" type="button">Como se joga</button>
     <button class="btn sec" data-go="pedia" type="button">Cagarropédia</button>
     <button class="btn sec" data-hub="vj-stats" type="button">Estatísticas</button>
@@ -1304,6 +1322,7 @@ window.VJ=(()=>{'use strict';
     const f=document.getElementById('vj-livro-f');
     if(id==='vj-stats'&&VJ.statsAnim)setTimeout(VJ.statsAnim,30);
     if(id==='vj-salvar'&&VJ.salvarMini)setTimeout(VJ.salvarMini,30);
+    if(id==='hub'&&VJ.salvarCta)setTimeout(VJ.salvarCta,30);
     if(id==='vj-livro'&&f){if(!f.srcdoc){const src=document.getElementById('vj-livro-src').textContent;f.srcdoc=src.split('<\\/script').join('</'+'script')}setTimeout(()=>{try{f.focus()}catch(e){}},60)}
     if(was==='vj-livro'&&id!=='vj-livro'&&f){try{const d=f.contentDocument,rb=d&&d.getElementById('read');if(rb&&rb.getAttribute('aria-pressed')==='true')rb.click();f.contentWindow.speechSynthesis&&f.contentWindow.speechSynthesis.cancel()}catch(e){}}};
   VJ.show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);VJ.onShow()};
@@ -5887,6 +5906,17 @@ if(window.__T)window.__G={enterRoom,get game(){return GAME},renderRoom,buildLend
     VJ.show('vj-salvar');const b=document.querySelector('[data-salvar="'+lista[lista.length-1]+'"]');if(b)try{b.focus({preventScroll:true})}catch(e){}};
   VJ.salvarMini=()=>{if(!VJ.cutMini)return;const go=()=>document.querySelectorAll('[data-salvar]').forEach(b=>{try{VJ.cutMini(b.querySelector('canvas'),'salvar-'+b.dataset.salvar,+b.dataset.t)}catch(e){}});
     go();try{document.fonts&&document.fonts.ready.then(go)}catch(e){}};
+  /* a faixa do início: uma animação pequena e sem som que passa pelos 7 passos */
+  const acv=document.getElementById('vj-salvar-anim'),alab=document.getElementById('vj-salvar-passo'),adots=[...document.querySelectorAll('.sc-dots li')];
+  if(acv&&VJ.cutMini){const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,DUR={},PARA=[7.2,6.6,7.4,6.2,7.4,7,8.6];
+    try{(VJ.cutLista?VJ.cutLista():[]).forEach(q=>{DUR[q.id]=q.dur})}catch(e){}
+    let n=1,t=1,ant=0,raf=0;
+    const marca=()=>{alab.textContent='Passo '+n+' de 7';adots.forEach((d,i)=>d.classList.toggle('on',i===n-1))};
+    const fr=agora=>{raf=0;const h=document.getElementById('hub');if(!h||!h.classList.contains('on'))return;
+      const dt=ant&&!document.hidden?Math.min(.1,(agora-ant)/1000):0;ant=agora;t+=dt;
+      if(t>(DUR['salvar-'+n]||14)-3.6){n=n%7+1;t=1;marca()}
+      try{VJ.cutMini(acv,'salvar-'+n,t)}catch(e){}raf=requestAnimationFrame(fr)};
+    VJ.salvarCta=()=>{marca();if(RM){try{VJ.cutMini(acv,'salvar-'+n,PARA[n-1])}catch(e){}return}if(!raf){ant=0;raf=requestAnimationFrame(fr)}}}
   document.querySelectorAll('[data-salvar]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([+b.dataset.salvar])}));
   const st=document.getElementById('vj-salvar-tudo');if(st)st.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([1,2,3,4,5,6,7])});
   VJ.onShow();
@@ -6475,7 +6505,8 @@ body{font-size:17px}
   #hub .hero{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:32px;margin-bottom:0}
   #hub .hero .lead{max-width:36em}
   #vj-sj{position:relative!important;top:0!important;display:block;width:100vw!important;max-width:none!important;height:clamp(180px,15vw,280px)!important;margin:-40px 0 calc(clamp(180px,15vw,280px) * -.22 - 20px)}
-  #hub .games{gap:20px;order:2}
+  #hub .games{gap:20px;order:3}
+  #hub .salvar-cta{order:2}
   /* o início usa a largura do ecrã; o balão fica ao lado do Jorginho (sem lhe tapar a cabeça) e o Jorginho pousa na ilha */
   #hub{max-width:min(2160px,calc(100vw - 96px))}
   #hub .hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
@@ -6486,7 +6517,7 @@ body{font-size:17px}
   #hub .bubble::after{content:'';position:absolute;right:-12px;bottom:6px;border:8px solid transparent;border-left:14px solid var(--espuma);border-right:0}
   #hub .hero{order:0}
   #vj-sj{order:1}
-  #hub .hubfoot{order:3}
+  #hub .hubfoot{order:4}
   .hubfoot .hubnav{margin:0;background:var(--painel);border:1px solid var(--linha);border-radius:22px;padding:16px}
 }
 .hubfoot{display:flex;flex-direction:column;gap:20px}
@@ -6538,7 +6569,19 @@ body[data-screen="vj-livro"] .rodape,body[data-screen="vj-cut"] .rodape{display:
 .cutcap i{font-style:normal;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--hort);flex-basis:100%}
 .cutcap.so-leitor{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 /* "Como se salva um cagarro?" */
-.hubnav .btn.salvar{background:var(--colete);color:#1b2000;border-color:var(--colete)}
+.salvar-cta{display:grid;grid-template-columns:minmax(220px,360px) minmax(0,1fr) auto;align-items:center;gap:18px 30px;background:linear-gradient(120deg,rgba(217,240,62,.2),rgba(13,34,58,.95) 48%);border:3px solid var(--colete);border-radius:26px;padding:16px 30px 16px 16px;box-shadow:0 0 0 7px rgba(217,240,62,.12),0 14px 34px rgba(5,12,24,.5);margin:0 0 22px}
+.sc-vid{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:18px;overflow:hidden;background:#0a1a2e;cursor:pointer}
+.sc-vid canvas{width:100%;height:100%;display:block}
+.sc-vid:focus-visible{outline:3px solid var(--colete);outline-offset:3px}
+.sc-passo{position:absolute;left:10px;top:10px;background:var(--colete);color:#1b2000;font-weight:700;font-size:13px;padding:4px 11px;border-radius:999px}
+.sc-txt h2{font-size:clamp(30px,3.2vw,48px);line-height:1.05;color:var(--colete);margin:6px 0 8px}
+.sc-txt p{font-size:19px;line-height:1.4;max-width:38em;margin:0}
+.sc-dots{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:14px 0 0;padding:0}
+.sc-dots li{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;font-size:16px;background:rgba(157,188,255,.16);color:var(--hort);transition:background .3s,color .3s,transform .3s}
+.sc-dots li.on{background:var(--colete);color:#1b2000;transform:scale(1.15)}
+.salvar-cta .sc-btn{background:var(--colete);border-color:var(--colete);color:#1b2000;font-size:22px;white-space:nowrap}
+@media (max-width:1150px){.salvar-cta{grid-template-columns:minmax(200px,320px) minmax(0,1fr)}.salvar-cta .sc-btn{grid-column:1/-1;justify-self:center}}
+@media (max-width:640px){.salvar-cta{grid-template-columns:1fr;padding:14px;text-align:center}.sc-txt p{font-size:17px}.sc-dots{justify-content:center}.sc-dots li{width:28px;height:28px;font-size:14px}}
 #vj-salvar{max-width:1280px}
 .salvar-lead{max-width:52em;margin:4px 0 14px}
 ol.salvar-passos{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
@@ -6609,6 +6652,12 @@ body.playing .rodape{display:none}
       <img class="j" data-svg="jorginho-frente" alt="Jorginho, a young shearwater seen from the front, with fluffy head feathers and a yellow beak">
     </div>
   </div>
+  <div class="salvar-cta">
+    <button class="sc-vid" type="button" data-hub="vj-salvar" aria-label="How do you rescue a shearwater? Watch the 7 steps"><canvas id="vj-salvar-anim" width="640" height="360" aria-hidden="true"></canvas><span class="sc-passo" id="vj-salvar-passo">Step 1 of 7</span></button>
+    <div class="sc-txt"><div class="eyebrow">Found a fallen shearwater?</div><h2>How do you rescue a shearwater?</h2><p>The 7 steps of the SOS Cagarro campaign, animated: gloves, a cloth, a box… and, in the morning, by the sea!</p>
+      <ol class="sc-dots" aria-hidden="true"><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li></ol></div>
+    <button class="btn sc-btn" type="button" data-hub="vj-salvar">▶ Watch the 7 steps</button>
+  </div>
   <div class="games">
     <div class="gcard g-c"><div class="gimg" aria-hidden="true"><img data-svg="nina" alt=""><img class="ave" data-svg="caixa-cheia" alt=""></div><div><h3>Voa, Jorginho!</h3><div class="tag">night patrol · 1 to 4 players</div><p>Night patrol. Switch off the town lights, pick up fallen shearwaters, make good choices during the night and set them free in the morning. The team with the most shearwaters safe wins.</p><button class="btn" type="button" data-go="setup">Play</button></div></div>
     <div class="gcard g-a"><canvas id="lj-prev-lenda" width="300" height="244" aria-hidden="true"></canvas><div><h3>The Legend of Jorginho</h3><div class="tag">top-down adventure</div><p>Room by room, parish by parish, from Topo to Velas. Rescue fallen shearwaters, put shades on the streetlamps, find the secrets and rescue Jorginho.</p><button class="btn" type="button" data-game="lenda">Play</button></div></div>
@@ -6620,7 +6669,6 @@ body.playing .rodape{display:none}
     <div class="hpick" role="group" aria-label="Character"><button type="button" data-hero="f" aria-pressed="true"><img data-svg="kid-f-frente0" alt=""><span>Girl</span></button><button type="button" data-hero="m" aria-pressed="false"><img data-svg="kid-m-frente0" alt=""><span>Boy</span></button></div>
     <label class="hname">Name<input id="lj-hname" maxlength="14" autocomplete="off"></label></div>
   <div class="row hubnav">
-    <button class="btn salvar" data-hub="vj-salvar" type="button">How do you rescue a shearwater?</button>
     <button class="btn sec" data-hub="vj-how" type="button">How to play</button>
     <button class="btn sec" data-go="pedia" type="button">Cagarropedia</button>
     <button class="btn sec" data-hub="vj-stats" type="button">Statistics</button>
@@ -7356,6 +7404,7 @@ window.VJ=(()=>{'use strict';
     const f=document.getElementById('vj-livro-f');
     if(id==='vj-stats'&&VJ.statsAnim)setTimeout(VJ.statsAnim,30);
     if(id==='vj-salvar'&&VJ.salvarMini)setTimeout(VJ.salvarMini,30);
+    if(id==='hub'&&VJ.salvarCta)setTimeout(VJ.salvarCta,30);
     if(id==='vj-livro'&&f){if(!f.srcdoc){const src=document.getElementById('vj-livro-src').textContent;f.srcdoc=src.split('<\\/script').join('</'+'script')}setTimeout(()=>{try{f.focus()}catch(e){}},60)}
     if(was==='vj-livro'&&id!=='vj-livro'&&f){try{const d=f.contentDocument,rb=d&&d.getElementById('read');if(rb&&rb.getAttribute('aria-pressed')==='true')rb.click();f.contentWindow.speechSynthesis&&f.contentWindow.speechSynthesis.cancel()}catch(e){}}};
   VJ.show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);VJ.onShow()};
@@ -11939,6 +11988,17 @@ if(window.__T)window.__G={enterRoom,get game(){return GAME},renderRoom,buildLend
     VJ.show('vj-salvar');const b=document.querySelector('[data-salvar="'+lista[lista.length-1]+'"]');if(b)try{b.focus({preventScroll:true})}catch(e){}};
   VJ.salvarMini=()=>{if(!VJ.cutMini)return;const go=()=>document.querySelectorAll('[data-salvar]').forEach(b=>{try{VJ.cutMini(b.querySelector('canvas'),'salvar-'+b.dataset.salvar,+b.dataset.t)}catch(e){}});
     go();try{document.fonts&&document.fonts.ready.then(go)}catch(e){}};
+  /* a faixa do início: uma animação pequena e sem som que passa pelos 7 passos */
+  const acv=document.getElementById('vj-salvar-anim'),alab=document.getElementById('vj-salvar-passo'),adots=[...document.querySelectorAll('.sc-dots li')];
+  if(acv&&VJ.cutMini){const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,DUR={},PARA=[7.2,6.6,7.4,6.2,7.4,7,8.6];
+    try{(VJ.cutLista?VJ.cutLista():[]).forEach(q=>{DUR[q.id]=q.dur})}catch(e){}
+    let n=1,t=1,ant=0,raf=0;
+    const marca=()=>{alab.textContent='Step '+n+' of 7';adots.forEach((d,i)=>d.classList.toggle('on',i===n-1))};
+    const fr=agora=>{raf=0;const h=document.getElementById('hub');if(!h||!h.classList.contains('on'))return;
+      const dt=ant&&!document.hidden?Math.min(.1,(agora-ant)/1000):0;ant=agora;t+=dt;
+      if(t>(DUR['salvar-'+n]||14)-3.6){n=n%7+1;t=1;marca()}
+      try{VJ.cutMini(acv,'salvar-'+n,t)}catch(e){}raf=requestAnimationFrame(fr)};
+    VJ.salvarCta=()=>{marca();if(RM){try{VJ.cutMini(acv,'salvar-'+n,PARA[n-1])}catch(e){}return}if(!raf){ant=0;raf=requestAnimationFrame(fr)}}}
   document.querySelectorAll('[data-salvar]').forEach(b=>b.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([+b.dataset.salvar])}));
   const st=document.getElementById('vj-salvar-tudo');if(st)st.addEventListener('click',()=>{const s=VJ.snd[0];if(s)s.play('click');passos([1,2,3,4,5,6,7])});
   VJ.onShow();
