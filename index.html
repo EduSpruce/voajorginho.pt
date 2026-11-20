@@ -217,7 +217,7 @@ details.stsrc[open]>summary{margin-bottom:6px}
 .vc .stagewrap.full .stage[data-flt="tv"]{border-radius:3%/4%}
 .vc .stagewrap.full .hint{display:none}
 .vc .fshud{display:none}
-.vc .stagewrap.full .fshud{display:flex;position:absolute;top:8px;left:8px;right:8px;z-index:2;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
+.vc .stagewrap.full .fshud{display:flex;position:absolute;top:8px;left:8px;right:8px;z-index:5;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
 .vc .fshud .chip{background:rgba(5,12,24,.72);font-size:15px;padding:4px 12px}
 .vc .fshud .sp{flex:1}
 .vc .fshud button{pointer-events:auto;min-height:38px;padding:4px 12px;background:rgba(5,12,24,.72)}
@@ -1328,6 +1328,7 @@ window.VJ=(()=>{'use strict';
   try{VJ.sound=localStorage.getItem('voa-jorginho-som')!=='0'}catch(e){}
   VJ.regSnd=s=>{s.on=VJ.sound;VJ.snd.push(s)};
   VJ.onShow=()=>{const on=document.querySelector('.screen.on'),id=on?on.id:'hub';
+    if(id==='hub'&&document.fullscreenElement){document.querySelectorAll('.stagewrap.full').forEach(e=>{e.classList.remove('full');delete e.dataset.fs;delete e.dataset.want});VJ.fsOff()}
     VJ.mod=id==='vj-cut'?(VJ.cutMod||'hub'):id.indexOf('vc-')===0?'vc':id.indexOf('lj-')===0?'lj':'hub';
     document.body.classList.toggle('playing',id==='lj-s-play');document.body.setAttribute('data-mod',VJ.mod);
     const was=document.body.getAttribute('data-screen');document.body.setAttribute('data-screen',id);if(id!=='vj-livro')VJ.livroFull(false,true);
@@ -1420,7 +1421,7 @@ const FACTS=[
 /* ---------- estado e ecrãs ---------- */
 let G=null, runTok=0, scene=null;
 const setup={players:['Jogador 1'],diff:'normal',nights:3};
-function show(id){const sw=$('#vc-stagewrap');if(sw){if(id==='play'){if(sw.dataset.want==='1'){sw.classList.add('full');setTimeout(sizeCanvases,50)}}else if(sw.classList.contains('full'))sw.classList.remove('full')}
+function show(id){const sw=$('#vc-stagewrap');if(sw&&!['play','quiz','turn','final'].includes(id)&&(sw.classList.contains('full')||sw.dataset.want==='1'))toggleFull(false);if(sw){if(id==='play'){if(sw.dataset.want==='1'){sw.classList.add('full');setTimeout(sizeCanvases,50)}}else if(sw.classList.contains('full'))sw.classList.remove('full')}
   $$('.screen').forEach(s=>s.classList.toggle('on',s.id===(id==='home'?'hub':'vc-s-'+id)));window.scrollTo(0,0);VJ.onShow();chips()}
 function chips(){
   const inGame=!!G&&!G.over;
@@ -2261,7 +2262,7 @@ function start(data){
     VJ.regSnd(Snd);
     VJ.home.vc=()=>{
       if(G&&!G.over){const now=Date.now();if(now-quitArm<3500){quit()}else{quitArm=now;$('#vc-c-night').textContent='Sair do jogo? Carrega outra vez no logótipo';setTimeout(()=>{if(G&&!G.over)chips()},3500)}}
-      else{G=null;show('home')}
+      else{G=null;toggleFull(false);show('home')}
     };
     if(data&&data.setup)Object.assign(setup,data.setup);
     if(data&&data.G&&data.G.players){G=data.G;G.over=false;runGame()}
@@ -3271,7 +3272,7 @@ function drawHUD(G,c){
   const L=G.L,S=G.stats,P=G.P,F=F_DISPLAY;
   c.fillStyle='#000';c.fillRect(0,0,W,HUD);c.textBaseline='alphabetic';
   /* nível, como o LEVEL-1 */
-  c.textAlign='left';c.font='900 20px '+F;c.fillStyle='#f4f1e6';let lab=('NÍVEL '+(L.vi+1)+' · '+L.V.name).toUpperCase();while(c.measureText(lab).width>200&&lab.length>6)lab=lab.slice(0,-1);c.fillText(lab,44,76);
+  c.textAlign='left';c.fillStyle='#f4f1e6';const lab=('NÍVEL '+(L.vi+1)+' · '+L.V.name).toUpperCase();let fs=20;c.font='900 '+fs+'px '+F;while(c.measureText(lab).width>214&&fs>11){fs--;c.font='900 '+fs+'px '+F}c.fillText(lab,44,76);
   /* mapa cinzento com a posição */
   hudMap(G,c,44,86,200,92);
   /* contadores, como rupias, chaves e bombas */
@@ -3739,24 +3740,24 @@ function startLevel(game,vi,li){
   GAME=null;
   cx.setTransform(SX,0,0,SY,0,0);cx.fillStyle='#050c18';cx.fillRect(0,0,CW,CH);paintSkyline(cx,CW,CH,V,0,0);
   overlay('<div class="who"><img src="'+URI['kid-'+HERO.g+'-frente0']+'" alt=""><div><div class="eyebrow">'+esc(V.name)+' · nível '+(vi+1)+(def.boss?' · desafio final':'')+'</div><h3>'+esc(def.n)+'</h3></div></div><p>'+esc(def.d)+'</p><p class="small muted">'+(game==='lenda'?'Setas para andar · Espaço: apanhar cagarro ou abanar o pano · K: pôr pala · Comando: ✕/A pano, ○/B pala':'Setas para andar · Shift: correr · Espaço: saltar · J ou K: pano ou pala · Comando: ✕/A saltar, □/X correr, ○/B pano')+'</p>',
-    [{label:'Começar',fn:intro},{label:'Ecrã',sec:true,fn:()=>screenMenu(()=>startLevel(game,vi,li))},{label:'Voltar',sec:true,fn:()=>openLevels(game)}]);
+    [{label:'Começar',fn:intro},{label:'Ecrã',sec:true,fn:()=>screenMenu(()=>startLevel(game,vi,li))},{label:'Voltar',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
 }
 function endLevel(game,vi,li,res){
   const V=VILLAGES[vi],def=LEVELS[V.id][li];GAME&&(GAME.frozen=true);
   if(res.win&&res.final){setStars(game,V.id,li+1,res.mask);
     VJ.cut({id:'fim',mod:'lj'}).then(()=>{show('play');Snd.play('win');overlay('<div class="who"><img src="'+URI['jorginho-frente']+'" alt=""><div><div class="eyebrow">Fim da viagem por São Jorge</div><h3>'+esc(HERO.name)+' salvou o Jorginho!</h3></div></div>'+starsHtml(res.mask)+'<p>O Lampião Gigante adormeceu com a pala posta e o Jorginho, o último cagarro, passou a noite na caixa, sossegado. Na manhã seguinte, voou para o mar alto com todos os outros. Do Topo às Velas, a brigada não deixou nenhum para trás.</p><div class="nums">'+res.nums.map(n=>'<div class="num'+(n[2]?' hi':'')+'"><b>'+n[0]+'</b><span>'+n[1]+'</span></div>').join('')+'</div><div class="panel" style="padding:14px"><div class="eyebrow">Diploma</div><p class="small" style="margin-top:4px">'+esc(HERO.name)+' é '+(HERO.g==='f'?'salvadora':'salvador')+' de cagarros de São Jorge. Na vida real, se encontrares um cagarro, segue os passos da campanha SOS Cagarro e, na dúvida, liga 800 292 800 (gratuito, 24 horas).</p></div>',
-      [{label:'Ver o mapa',fn:()=>openLevels(game)},{label:'Jogar outra vez',sec:true,fn:()=>startLevel(game,vi,li)}])});return}
+      [{label:'Ver o mapa',fn:()=>{toggleFull(false);openLevels(game)}},{label:'Jogar outra vez',sec:true,fn:()=>startLevel(game,vi,li)}])});return}
   if(res.win){setStars(game,V.id,li+1,res.mask);Snd.play('win');
     const next=vi<VILLAGES.length-1?()=>{curVill=vi+1;VJ.cut({id:(game==='lenda'?'l':'s')+vi,from:VILLAGES[vi].name,to:VILLAGES[vi+1].name,mod:'lj',n:vi+1}).then(()=>startLevel(game,vi+1,0))}:()=>openLevels(game);
     overlay('<div class="who"><img src="'+URI['boris-voa']+'" alt=""><div><div class="eyebrow">Nível '+(li+1)+' completo</div><h3>'+esc(def.n)+'</h3></div></div>'+starsHtml(res.mask)+'<div class="nums">'+res.nums.map(n=>'<div class="num'+(n[2]?' hi':'')+'"><b>'+n[0]+'</b><span>'+n[1]+'</span></div>').join('')+'</div><div class="panel" style="padding:14px"><div class="eyebrow">Sabias que</div><p class="small" style="margin-top:4px">'+esc(FACTS[(vi*15+li)%FACTS.length])+'</p></div>',
-      [{label:vi<VILLAGES.length-1?'Próximo nível':'Ver níveis',fn:next},{label:'Repetir',sec:true,fn:()=>startLevel(game,vi,li)},{label:'Níveis',sec:true,fn:()=>openLevels(game)}]);
+      [{label:vi<VILLAGES.length-1?'Próximo nível':'Ver níveis',fn:next},{label:'Repetir',sec:true,fn:()=>startLevel(game,vi,li)},{label:'Níveis',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
   }else{
     overlay('<div class="who"><img src="'+URI['caixa-cheia']+'" alt=""><div><div class="eyebrow">Ficaste sem penas</div><h3>O Jorginho precisa de descansar</h3></div></div><p>Na caixa de cartão, num sítio calmo e escuro, ele recupera depressa. Tenta outra vez!</p>',
-      [{label:'Tentar outra vez',fn:()=>startLevel(game,vi,li)},{label:'Níveis',sec:true,fn:()=>openLevels(game)}]);
+      [{label:'Tentar outra vez',fn:()=>startLevel(game,vi,li)},{label:'Níveis',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
   }
 }
 function pauseGame(){if(!GAME||GAME.frozen||$('#lj-overlay').classList.contains('on'))return;paused=true;clearInput();
-  overlay('<h3>Pausa</h3><p class="small muted">'+(GAME.kind==='lenda'?'Setas: andar · Espaço/J: pano · K/E: pala · Comando: ✕/A pano, ○/B pala':'Setas: andar · Shift: correr · Espaço/↑: saltar · J/K: pano ou pala · Comando: ✕/A saltar, □/X correr, ○/B pano')+'</p>',[{label:'Continuar',fn:()=>{paused=false}},{label:'Ecrã',sec:true,fn:()=>screenMenu(()=>{paused=false})},{label:'Recomeçar nível',sec:true,fn:()=>startLevel(GAME.kind,GAME.L.vi,GAME.L.li)},{label:'Sair',sec:true,fn:()=>{GAME=null;openLevels(curGame)}}])}
+  overlay('<h3>Pausa</h3><p class="small muted">'+(GAME.kind==='lenda'?'Setas: andar · Espaço/J: pano · K/E: pala · Comando: ✕/A pano, ○/B pala':'Setas: andar · Shift: correr · Espaço/↑: saltar · J/K: pano ou pala · Comando: ✕/A saltar, □/X correr, ○/B pano')+'</p>',[{label:'Continuar',fn:()=>{paused=false}},{label:'Ecrã',sec:true,fn:()=>screenMenu(()=>{paused=false})},{label:'Recomeçar nível',sec:true,fn:()=>startLevel(GAME.kind,GAME.L.vi,GAME.L.li)},{label:'Sair',sec:true,fn:()=>{GAME=null;toggleFull(false);openLevels(curGame)}}])}
 
 /* ----- fundo ambiente ----- */
 /* ----- a ilha de São Jorge como se vê de verdade a chegar às Velas por mar (do canal, a sudoeste):
@@ -5835,7 +5836,7 @@ function boot(){
     $('#lj-cast').innerHTML=cast.map(c=>'<div><img src="'+URI[c[0]]+'" alt=""><b>'+c[1]+'</b><span>'+c[2]+'</span></div>').join('');
     $$('[data-lgo]').forEach(b=>b.addEventListener('click',()=>{Snd.play('click');if(b.dataset.lgo==='home'){GAME=null}show(b.dataset.lgo)}));
     $$('[data-game]').forEach(b=>b.addEventListener('click',()=>{Snd.init();Snd.play('click');openLevels(b.dataset.game)}));
-    VJ.home.lj=()=>{GAME=null;runId++;$('#lj-overlay').classList.remove('on');show('home')};
+    VJ.home.lj=()=>{toggleFull(false);GAME=null;runId++;paused=false;$('#lj-overlay').classList.remove('on');show('home')};
     $('#lj-b-pause').onclick=()=>{Snd.play('click');pauseGame()};
     $('#lj-b-full').onclick=()=>{Snd.play('click');toggleFull()};$('#lj-b-exit').onclick=()=>{Snd.play('click');toggleFull(false);GAME=null;runId++;paused=false;$('#lj-overlay').classList.remove('on');show('home')};
     try{new ResizeObserver(()=>sizeCanvases()).observe($('#lj-stage'))}catch(e){}$('#lj-b-scr').onclick=()=>{Snd.play('click');screenMenu()};
@@ -6269,7 +6270,7 @@ details.stsrc[open]>summary{margin-bottom:6px}
 .vc .stagewrap.full .stage[data-flt="tv"]{border-radius:3%/4%}
 .vc .stagewrap.full .hint{display:none}
 .vc .fshud{display:none}
-.vc .stagewrap.full .fshud{display:flex;position:absolute;top:8px;left:8px;right:8px;z-index:2;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
+.vc .stagewrap.full .fshud{display:flex;position:absolute;top:8px;left:8px;right:8px;z-index:5;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
 .vc .fshud .chip{background:rgba(5,12,24,.72);font-size:15px;padding:4px 12px}
 .vc .fshud .sp{flex:1}
 .vc .fshud button{pointer-events:auto;min-height:38px;padding:4px 12px;background:rgba(5,12,24,.72)}
@@ -7380,6 +7381,7 @@ window.VJ=(()=>{'use strict';
   try{VJ.sound=localStorage.getItem('voa-jorginho-som')!=='0'}catch(e){}
   VJ.regSnd=s=>{s.on=VJ.sound;VJ.snd.push(s)};
   VJ.onShow=()=>{const on=document.querySelector('.screen.on'),id=on?on.id:'hub';
+    if(id==='hub'&&document.fullscreenElement){document.querySelectorAll('.stagewrap.full').forEach(e=>{e.classList.remove('full');delete e.dataset.fs;delete e.dataset.want});VJ.fsOff()}
     VJ.mod=id==='vj-cut'?(VJ.cutMod||'hub'):id.indexOf('vc-')===0?'vc':id.indexOf('lj-')===0?'lj':'hub';
     document.body.classList.toggle('playing',id==='lj-s-play');document.body.setAttribute('data-mod',VJ.mod);
     const was=document.body.getAttribute('data-screen');document.body.setAttribute('data-screen',id);if(id!=='vj-livro')VJ.livroFull(false,true);
@@ -7472,7 +7474,7 @@ const FACTS=[
 /* ---------- estado e ecrãs ---------- */
 let G=null, runTok=0, scene=null;
 const setup={players:['Player 1'],diff:'normal',nights:3};
-function show(id){const sw=$('#vc-stagewrap');if(sw){if(id==='play'){if(sw.dataset.want==='1'){sw.classList.add('full');setTimeout(sizeCanvases,50)}}else if(sw.classList.contains('full'))sw.classList.remove('full')}
+function show(id){const sw=$('#vc-stagewrap');if(sw&&!['play','quiz','turn','final'].includes(id)&&(sw.classList.contains('full')||sw.dataset.want==='1'))toggleFull(false);if(sw){if(id==='play'){if(sw.dataset.want==='1'){sw.classList.add('full');setTimeout(sizeCanvases,50)}}else if(sw.classList.contains('full'))sw.classList.remove('full')}
   $$('.screen').forEach(s=>s.classList.toggle('on',s.id===(id==='home'?'hub':'vc-s-'+id)));window.scrollTo(0,0);VJ.onShow();chips()}
 function chips(){
   const inGame=!!G&&!G.over;
@@ -8313,7 +8315,7 @@ function start(data){
     VJ.regSnd(Snd);
     VJ.home.vc=()=>{
       if(G&&!G.over){const now=Date.now();if(now-quitArm<3500){quit()}else{quitArm=now;$('#vc-c-night').textContent='Quit the game? Press the logo again';setTimeout(()=>{if(G&&!G.over)chips()},3500)}}
-      else{G=null;show('home')}
+      else{G=null;toggleFull(false);show('home')}
     };
     if(data&&data.setup)Object.assign(setup,data.setup);
     if(data&&data.G&&data.G.players){G=data.G;G.over=false;runGame()}
@@ -9323,7 +9325,7 @@ function drawHUD(G,c){
   const L=G.L,S=G.stats,P=G.P,F=F_DISPLAY;
   c.fillStyle='#000';c.fillRect(0,0,W,HUD);c.textBaseline='alphabetic';
   /* nível, como o LEVEL-1 */
-  c.textAlign='left';c.font='900 20px '+F;c.fillStyle='#f4f1e6';let lab=('LEVEL '+(L.vi+1)+' · '+L.V.name).toUpperCase();while(c.measureText(lab).width>200&&lab.length>6)lab=lab.slice(0,-1);c.fillText(lab,44,76);
+  c.textAlign='left';c.fillStyle='#f4f1e6';const lab=('LEVEL '+(L.vi+1)+' · '+L.V.name).toUpperCase();let fs=20;c.font='900 '+fs+'px '+F;while(c.measureText(lab).width>214&&fs>11){fs--;c.font='900 '+fs+'px '+F}c.fillText(lab,44,76);
   /* mapa cinzento com a posição */
   hudMap(G,c,44,86,200,92);
   /* contadores, como rupias, chaves e bombas */
@@ -9791,24 +9793,24 @@ function startLevel(game,vi,li){
   GAME=null;
   cx.setTransform(SX,0,0,SY,0,0);cx.fillStyle='#050c18';cx.fillRect(0,0,CW,CH);paintSkyline(cx,CW,CH,V,0,0);
   overlay('<div class="who"><img src="'+URI['kid-'+HERO.g+'-frente0']+'" alt=""><div><div class="eyebrow">'+esc(V.name)+' · level '+(vi+1)+(def.boss?' · final challenge':'')+'</div><h3>'+esc(def.n)+'</h3></div></div><p>'+esc(def.d)+'</p><p class="small muted">'+(game==='lenda'?'Arrows to walk · Space: pick up a shearwater or wave the cloth · K: put on a shade · Controller: ✕/A cloth, ○/B shade':'Arrows to walk · Shift: run · Space: jump · J or K: cloth or shade · Controller: ✕/A jump, □/X run, ○/B cloth')+'</p>',
-    [{label:'Start',fn:intro},{label:'Screen',sec:true,fn:()=>screenMenu(()=>startLevel(game,vi,li))},{label:'Back',sec:true,fn:()=>openLevels(game)}]);
+    [{label:'Start',fn:intro},{label:'Screen',sec:true,fn:()=>screenMenu(()=>startLevel(game,vi,li))},{label:'Back',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
 }
 function endLevel(game,vi,li,res){
   const V=VILLAGES[vi],def=LEVELS[V.id][li];GAME&&(GAME.frozen=true);
   if(res.win&&res.final){setStars(game,V.id,li+1,res.mask);
     VJ.cut({id:'fim',mod:'lj'}).then(()=>{show('play');Snd.play('win');overlay('<div class="who"><img src="'+URI['jorginho-frente']+'" alt=""><div><div class="eyebrow">The end of the journey across São Jorge</div><h3>'+esc(HERO.name)+' rescued Jorginho!</h3></div></div>'+starsHtml(res.mask)+'<p>Giant Lampy fell asleep with his shade on and Jorginho, the last shearwater chick, spent the night quietly in the box. The next morning, he flew out to the open sea with all the others. From Topo to Velas, the rescue team left no one behind.</p><div class="nums">'+res.nums.map(n=>'<div class="num'+(n[2]?' hi':'')+'"><b>'+n[0]+'</b><span>'+n[1]+'</span></div>').join('')+'</div><div class="panel" style="padding:14px"><div class="eyebrow">Diploma</div><p class="small" style="margin-top:4px">'+esc(HERO.name)+' is a '+(HERO.g==='f'?'shearwater':'shearwater')+' rescuer from São Jorge. In real life, if you find a shearwater, follow the steps of the SOS Cagarro campaign and, if in doubt, call 800 292 800 (from a foreign phone: +351 800 292 800) (free, 24 hours).</p></div>',
-      [{label:'See the map',fn:()=>openLevels(game)},{label:'Play again',sec:true,fn:()=>startLevel(game,vi,li)}])});return}
+      [{label:'See the map',fn:()=>{toggleFull(false);openLevels(game)}},{label:'Play again',sec:true,fn:()=>startLevel(game,vi,li)}])});return}
   if(res.win){setStars(game,V.id,li+1,res.mask);Snd.play('win');
     const next=vi<VILLAGES.length-1?()=>{curVill=vi+1;VJ.cut({id:(game==='lenda'?'l':'s')+vi,from:VILLAGES[vi].name,to:VILLAGES[vi+1].name,mod:'lj',n:vi+1}).then(()=>startLevel(game,vi+1,0))}:()=>openLevels(game);
     overlay('<div class="who"><img src="'+URI['boris-voa']+'" alt=""><div><div class="eyebrow">Level '+(li+1)+' completo</div><h3>'+esc(def.n)+'</h3></div></div>'+starsHtml(res.mask)+'<div class="nums">'+res.nums.map(n=>'<div class="num'+(n[2]?' hi':'')+'"><b>'+n[0]+'</b><span>'+n[1]+'</span></div>').join('')+'</div><div class="panel" style="padding:14px"><div class="eyebrow">Did you know?</div><p class="small" style="margin-top:4px">'+esc(FACTS[(vi*15+li)%FACTS.length])+'</p></div>',
-      [{label:vi<VILLAGES.length-1?'Next level':'See levels',fn:next},{label:'Replay',sec:true,fn:()=>startLevel(game,vi,li)},{label:'Levels',sec:true,fn:()=>openLevels(game)}]);
+      [{label:vi<VILLAGES.length-1?'Next level':'See levels',fn:next},{label:'Replay',sec:true,fn:()=>startLevel(game,vi,li)},{label:'Levels',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
   }else{
     overlay('<div class="who"><img src="'+URI['caixa-cheia']+'" alt=""><div><div class="eyebrow">You ran out of feathers</div><h3>Jorginho needs a rest</h3></div></div><p>In the cardboard box, in a quiet, dark place, he gets better quickly. Try again!</p>',
-      [{label:'Try again',fn:()=>startLevel(game,vi,li)},{label:'Levels',sec:true,fn:()=>openLevels(game)}]);
+      [{label:'Try again',fn:()=>startLevel(game,vi,li)},{label:'Levels',sec:true,fn:()=>{toggleFull(false);openLevels(game)}}]);
   }
 }
 function pauseGame(){if(!GAME||GAME.frozen||$('#lj-overlay').classList.contains('on'))return;paused=true;clearInput();
-  overlay('<h3>Pause</h3><p class="small muted">'+(GAME.kind==='lenda'?'Arrows: walk · Space/J: cloth · K/E: shade · Controller: ✕/A cloth, ○/B shade':'Arrows: walk · Shift: run · Space/↑: jump · J/K: cloth or shade · Controller: ✕/A jump, □/X run, ○/B cloth')+'</p>',[{label:'Continue',fn:()=>{paused=false}},{label:'Screen',sec:true,fn:()=>screenMenu(()=>{paused=false})},{label:'Restart level',sec:true,fn:()=>startLevel(GAME.kind,GAME.L.vi,GAME.L.li)},{label:'Exit',sec:true,fn:()=>{GAME=null;openLevels(curGame)}}])}
+  overlay('<h3>Pause</h3><p class="small muted">'+(GAME.kind==='lenda'?'Arrows: walk · Space/J: cloth · K/E: shade · Controller: ✕/A cloth, ○/B shade':'Arrows: walk · Shift: run · Space/↑: jump · J/K: cloth or shade · Controller: ✕/A jump, □/X run, ○/B cloth')+'</p>',[{label:'Continue',fn:()=>{paused=false}},{label:'Screen',sec:true,fn:()=>screenMenu(()=>{paused=false})},{label:'Restart level',sec:true,fn:()=>startLevel(GAME.kind,GAME.L.vi,GAME.L.li)},{label:'Exit',sec:true,fn:()=>{GAME=null;toggleFull(false);openLevels(curGame)}}])}
 
 /* ----- fundo ambiente ----- */
 /* ----- a ilha de São Jorge como se vê de verdade a chegar às Velas por mar (do canal, a sudoeste):
@@ -11887,7 +11889,7 @@ function boot(){
     $('#lj-cast').innerHTML=cast.map(c=>'<div><img src="'+URI[c[0]]+'" alt=""><b>'+c[1]+'</b><span>'+c[2]+'</span></div>').join('');
     $$('[data-lgo]').forEach(b=>b.addEventListener('click',()=>{Snd.play('click');if(b.dataset.lgo==='home'){GAME=null}show(b.dataset.lgo)}));
     $$('[data-game]').forEach(b=>b.addEventListener('click',()=>{Snd.init();Snd.play('click');openLevels(b.dataset.game)}));
-    VJ.home.lj=()=>{GAME=null;runId++;$('#lj-overlay').classList.remove('on');show('home')};
+    VJ.home.lj=()=>{toggleFull(false);GAME=null;runId++;paused=false;$('#lj-overlay').classList.remove('on');show('home')};
     $('#lj-b-pause').onclick=()=>{Snd.play('click');pauseGame()};
     $('#lj-b-full').onclick=()=>{Snd.play('click');toggleFull()};$('#lj-b-exit').onclick=()=>{Snd.play('click');toggleFull(false);GAME=null;runId++;paused=false;$('#lj-overlay').classList.remove('on');show('home')};
     try{new ResizeObserver(()=>sizeCanvases()).observe($('#lj-stage'))}catch(e){}$('#lj-b-scr').onclick=()=>{Snd.play('click');screenMenu()};
