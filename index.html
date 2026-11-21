@@ -2047,6 +2047,70 @@ function paintSaoJorge(c,w,h,by,t,o){
     txt('não se vê daqui',ax,ay-as-3,sm?'700 10px':'700 11px','right',W2)}
 }
 
+/* panorama do início, como na fotografia das Velas vistas da encosta: a encosta verde à esquerda, a vila das Velas
+   à beira-mar com o campo municipal, o Morro Grande com a falésia a pique, o Pico comprido no horizonte e o ilhéu no mar.
+   De noite, ao luar: as luzes da vila acesas (são estas luzes que encandeiam os cagarros). */
+function paintVelasHub(c,W,H,by,t){
+  const Hn=Math.min(H*.7,Math.max(W*.12,110)),sm=W<560,X=f=>W*f,r=rng(77),F=(typeof F_DISPLAY!=='undefined'?F_DISPLAY:'sans-serif');
+  const hz=by-Hn*.62;
+  /* mar até ao horizonte, por trás da ilha */
+  let g=c.createLinearGradient(0,hz,0,by);g.addColorStop(0,'rgba(36,73,122,.0)');g.addColorStop(.08,'rgba(30,64,110,.85)');g.addColorStop(1,'rgba(16,53,90,.98)');c.fillStyle=g;c.fillRect(0,hz-2,W,by-hz+2);
+  c.fillStyle='rgba(170,200,240,.12)';for(let y=hz+4;y<by;y+=5){const d=(y-hz)/(by-hz);for(let i=0;i<W/60;i++)c.fillRect(r()*W,y,(4+r()*14)*(.4+d),1)}
+  /* o Pico, comprido, no horizonte (o cone fica escondido nas nuvens, como na fotografia) */
+  const pk=[];c.fillStyle='#34547f';c.beginPath();c.moveTo(X(.3),hz+1);for(let k=0;k<=80;k++){const f=k/80,x=X(.3+.72*f),y=hz-Hn*.17*(Math.pow(Math.sin(Math.PI*Math.min(1,f*1.05)),.5)*.8+.22*Math.exp(-((f-.7)**2)/.02))-Hn*.012*Math.sin(f*47);pk.push([x,y]);c.lineTo(x,y)}c.lineTo(X(1.02),hz+1);c.closePath();c.fill();c.strokeStyle='rgba(170,195,235,.3)';c.lineWidth=1.2;c.beginPath();pk.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
+  for(let i=0;i<14;i++){c.fillStyle='rgba(255,205,120,.55)';c.fillRect(X(.34+r()*.66),hz-1-r()*2,1.2,1.2)}
+  {const k=(t*.008)%1;c.fillStyle='rgba(235,240,250,.8)';const bx=X(.22+k*.05),bh=Math.max(5,Hn*.05);c.beginPath();c.moveTo(bx,hz+Hn*.12);c.lineTo(bx,hz+Hn*.12-bh);c.lineTo(bx+bh*.55,hz+Hn*.12);c.closePath();c.fill()}
+  /* o Morro Grande: cimo verde arredondado e a falésia a pique virada para o mar (à direita) */
+  const mt=by-Hn*.86,m=[[.55,by],[.6,by-Hn*.45],[.65,mt+Hn*.06],[.7,mt],[.78,mt+Hn*.03],[.835,mt+Hn*.1],[.86,mt+Hn*.22],[.875,by-Hn*.34],[.9,by-Hn*.28],[.905,by]];
+  const morro=()=>{c.beginPath();c.moveTo(X(m[0][0]),m[0][1]);for(let i=1;i<m.length;i++){const a=m[i-1],b=m[i];c.quadraticCurveTo(X(a[0]),a[1],X((a[0]+b[0])/2),(a[1]+b[1])/2)}c.lineTo(X(.905),by);c.closePath()};
+  g=c.createLinearGradient(0,mt,0,by);g.addColorStop(0,'#1d4434');g.addColorStop(1,'#112a24');c.fillStyle=g;morro();c.fill();
+  /* a falésia: rocha cor de areia ao luar, com riscos verticais */
+  c.save();morro();c.clip();c.fillStyle='#6d5f4c';c.beginPath();c.moveTo(X(.77),mt+Hn*.06);c.quadraticCurveTo(X(.8),mt+Hn*.3,X(.79),by-Hn*.12);c.lineTo(X(.91),by);c.lineTo(X(.91),mt);c.closePath();c.fill();
+  c.fillStyle='rgba(30,22,16,.45)';c.beginPath();c.moveTo(X(.86),mt+Hn*.2);c.lineTo(X(.875),by-Hn*.32);c.lineTo(X(.91),by-Hn*.25);c.lineTo(X(.91),by);c.lineTo(X(.86),by);c.closePath();c.fill();
+  c.strokeStyle='rgba(40,30,20,.22)';c.lineWidth=1.5;for(let i=0;i<14;i++){const x=X(.785+r()*.12),y0=mt+Hn*(.08+r()*.3);c.beginPath();c.moveTo(x,y0);c.lineTo(x+r()*2,y0+Hn*(.15+r()*.3));c.stroke()}
+  g=c.createLinearGradient(0,by-Hn*.25,0,by);g.addColorStop(0,'rgba(10,20,30,0)');g.addColorStop(1,'rgba(10,20,30,.6)');c.fillStyle=g;c.fillRect(X(.55),by-Hn*.25,X(.37),Hn*.25);c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(X(.6),by-Hn*.45);c.quadraticCurveTo(X(.65),mt+Hn*.06,X(.675),mt+Hn*.03);c.quadraticCurveTo(X(.7),mt,X(.74),mt+Hn*.015);c.stroke();
+  /* reflexo da falésia na água */
+  c.fillStyle='rgba(109,95,76,.18)';for(let k=0;k<6;k++)c.fillRect(X(.8+Math.sin(t+k)*.004),by+3+k*5,X(.09)*(1-k*.12),1.5);
+  /* o ilhéu (a agulha de rocha) no mar */
+  c.fillStyle='#0f1d2a';c.beginPath();c.moveTo(X(.95),by);c.lineTo(X(.953),by-Hn*.2);c.lineTo(X(.958),by-Hn*.24);c.lineTo(X(.963),by-Hn*.15);c.lineTo(X(.97),by);c.closePath();c.fill();
+  /* terra entre a vila e o morro, a subir */
+  c.fillStyle='#142f27';c.beginPath();c.moveTo(X(.38),by);c.quadraticCurveTo(X(.5),by-Hn*.1,X(.6),by-Hn*.42);c.lineTo(X(.62),by);c.closePath();c.fill();
+  /* a encosta verde à esquerda, com pastagens e muros de pedra */
+  const enc=()=>{c.beginPath();c.moveTo(-2,by);c.lineTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.quadraticCurveTo(X(.14),by-Hn*.2,X(.2),by-Hn*.17);c.lineTo(X(.38),by-Hn*.08);c.lineTo(X(.4),by);c.closePath()};
+  g=c.createLinearGradient(0,by-Hn,0,by);g.addColorStop(0,'#1e4636');g.addColorStop(1,'#13302a');c.fillStyle=g;enc();c.fill();
+  c.save();enc();c.clip();c.strokeStyle='rgba(170,200,160,.16)';c.lineWidth=1;
+  for(let i=0;i<9;i++){const y=by-Hn*(.2+i*.08);c.beginPath();c.moveTo(-2,y+Hn*.04);c.quadraticCurveTo(X(.06),y,X(.14),y-Hn*.03);c.stroke()}
+  for(let i=0;i<22;i++){const x=X(r()*.13),y=by-Hn*(.05+r()*.6);c.beginPath();c.moveTo(x,y);c.lineTo(x+X(.006),y+Hn*.07);c.stroke()}
+  c.fillStyle='rgba(120,170,110,.08)';for(let i=0;i<10;i++){const x=X(r()*.11),y=by-Hn*(.25+r()*.5);c.fillRect(x,y,X(.02+r()*.03),Hn*.05)}
+  c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.stroke();
+  /* a vila das Velas: casas brancas de telhado vermelho, a subir um pouco para a encosta */
+  const casa=(x,y,hs)=>{c.fillStyle='rgba(225,228,236,.82)';c.fillRect(x,y-hs,hs*1.6,hs);c.fillStyle='rgba(160,62,48,.9)';c.fillRect(x-.4,y-hs-hs*.35,hs*1.6+.8,hs*.38);
+    if(r()<.6){c.fillStyle='rgba(255,200,105,'+(.6+.35*Math.sin(t*1.5+x))+')';c.fillRect(x+hs*.45,y-hs*.65,Math.max(1.2,hs*.35),Math.max(1.2,hs*.35))}};
+  const hs0=Math.max(3,Hn*.06);
+  const cs=[];for(let i=0;i<110;i++){const f=.1+r()*.2,top=f<.16?.3-(f-.1)*1.6:.2-(f-.16)*.9,y=by-1-Hn*Math.max(.01,top)*Math.pow(r(),.8);cs.push([f,y])}cs.sort((a,b)=>a[1]-b[1]).forEach(q=>casa(X(q[0]),q[1],hs0*(.7+r()*.45)));
+  /* a Matriz das Velas */
+  {const x=X(.2),y=by-Hn*.02,tw=hs0*1.1,th=hs0*4.2;c.fillStyle='rgba(238,234,222,.92)';c.fillRect(x-hs0*2.4,y-hs0*1.8,hs0*2.4,hs0*1.8);c.fillRect(x,y-th,tw,th);c.beginPath();c.moveTo(x-.5,y-th);c.lineTo(x+tw/2,y-th-tw*1.4);c.lineTo(x+tw+.5,y-th);c.fill()}
+  /* o campo municipal: relvado com linhas, pista vermelha à volta e quatro torres de luz (apagadas) */
+  {const x0=X(.3),x1=X(.39),yt=by-Hn*.13,yb=by-Hn*.02,sk=X(.012);
+   c.fillStyle='rgba(150,60,50,.85)';c.beginPath();c.moveTo(x0-sk*.6,yb+2);c.lineTo(x0+sk-2,yt-2);c.lineTo(x1+sk+2,yt-2);c.lineTo(x1+3,yb+2);c.closePath();c.fill();
+   c.fillStyle='#2f7a45';c.beginPath();c.moveTo(x0,yb);c.lineTo(x0+sk,yt);c.lineTo(x1+sk,yt);c.lineTo(x1,yb);c.closePath();c.fill();
+   c.strokeStyle='rgba(240,245,240,.7)';c.lineWidth=1;c.stroke();c.beginPath();c.moveTo((x0+x1)/2,yb);c.lineTo((x0+x1)/2+sk,yt);c.stroke();
+   c.fillStyle='rgba(225,228,236,.85)';c.fillRect(x1+sk*.4,yt-hs0*.2,hs0*2,hs0*1.4);
+   [[x0-sk*.6,yb],[x0+sk-2,yt],[x1+sk+2,yt],[x1+3,yb]].forEach(q=>{c.fillStyle='rgba(200,205,215,.7)';c.fillRect(q[0],q[1]-Hn*.12,1.2,Hn*.12);c.fillRect(q[0]-1.5,q[1]-Hn*.12,4,2)})}
+  /* a marginal e o porto */
+  c.fillStyle='rgba(200,210,225,.45)';c.fillRect(X(.12),by-1,X(.26),2);
+  for(let i=0;i<9;i++){const x=X(.13+i*.03);c.fillStyle='#ffc56e';c.fillRect(x,by-4,1.6,1.6);c.strokeStyle='rgba(255,190,90,.25)';c.lineWidth=1.3;c.beginPath();c.moveTo(x-2,by+5+i%2*3);c.lineTo(x+4+2*Math.sin(t*2+i),by+5+i%2*3);c.stroke()}
+  {const x0=X(.1),x1=X(.15);c.strokeStyle='rgba(200,215,240,.5)';c.lineWidth=Math.max(2,Hn*.025);c.beginPath();c.moveTo(x0,by+1);c.lineTo(x1,by+4);c.stroke();c.fillStyle='rgba(255,90,80,'+(.5+.5*Math.sin(t*3))+')';c.fillRect(x1-1,by,3,3)}
+  /* nomes */
+  c.textBaseline='alphabetic';const txt=(n,x,y,sz,col)=>{c.textAlign='center';c.font=sz+' '+F;c.fillStyle='rgba(6,16,30,.65)';c.fillText(n,x+1,y+1);c.fillStyle=col;c.fillText(n,x,y)};
+  const W1='rgba(244,241,230,.92)',W2='rgba(157,188,255,.85)';
+  txt('Velas',X(.2),by-Hn*.38,sm?'900 13px':'900 15px',W1);
+  if(!sm)txt('Campo Municipal',X(.35),by-Hn*.2,'700 11px',W2);
+  if(!sm)txt('Morro Grande',X(.66),mt-8,'700 12px',W2);
+  txt('Pico',X(.62),hz-Hn*.22,sm?'700 11px':'700 12px',W2)}
+
 /* panorama de São Jorge por trás do início */
 function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)return;
   /* a costa da ilha fica logo acima dos cartões (PC) ou debaixo dos pés do Jorginho (telemóvel) */
@@ -2055,7 +2119,7 @@ function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)retu
   if(cv.width!==Math.round(W*d)||cv.height!==Math.round(H*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,W,H);
   const by=H*.74,g=c.createLinearGradient(0,by,0,H);g.addColorStop(0,'rgba(16,53,90,.95)');g.addColorStop(1,'rgba(16,53,90,0)');c.fillStyle=g;c.fillRect(0,by,W,H-by);
   c.strokeStyle='rgba(157,188,255,.22)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();for(let x=0;x<=W;x+=24){const y=by+10+i*14+Math.sin(x*.02+t*1.2+i*2)*2.5;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}
-  paintSaoJorge(c,W,H,by,t,{hub:true,main:'#183759',far:'#2f5784',rim:'rgba(200,220,255,.42)',H:Math.min(H*.58,Math.max(W*.11,92)),x0:W<560?0:.07,x1:W<560?.82:.86});
+  paintVelasHub(c,W,H,by,t);
 }
 
 /* ---------- fundo de noite de todos os ecrãs (menos o início):
@@ -3844,6 +3908,70 @@ function paintSaoJorge(c,w,h,by,t,o){
     txt('não se vê daqui',ax,ay-as-3,sm?'700 10px':'700 11px','right',W2)}
 }
 
+/* panorama do início, como na fotografia das Velas vistas da encosta: a encosta verde à esquerda, a vila das Velas
+   à beira-mar com o campo municipal, o Morro Grande com a falésia a pique, o Pico comprido no horizonte e o ilhéu no mar.
+   De noite, ao luar: as luzes da vila acesas (são estas luzes que encandeiam os cagarros). */
+function paintVelasHub(c,W,H,by,t){
+  const Hn=Math.min(H*.7,Math.max(W*.12,110)),sm=W<560,X=f=>W*f,r=rng(77),F=(typeof F_DISPLAY!=='undefined'?F_DISPLAY:'sans-serif');
+  const hz=by-Hn*.62;
+  /* mar até ao horizonte, por trás da ilha */
+  let g=c.createLinearGradient(0,hz,0,by);g.addColorStop(0,'rgba(36,73,122,.0)');g.addColorStop(.08,'rgba(30,64,110,.85)');g.addColorStop(1,'rgba(16,53,90,.98)');c.fillStyle=g;c.fillRect(0,hz-2,W,by-hz+2);
+  c.fillStyle='rgba(170,200,240,.12)';for(let y=hz+4;y<by;y+=5){const d=(y-hz)/(by-hz);for(let i=0;i<W/60;i++)c.fillRect(r()*W,y,(4+r()*14)*(.4+d),1)}
+  /* o Pico, comprido, no horizonte (o cone fica escondido nas nuvens, como na fotografia) */
+  const pk=[];c.fillStyle='#34547f';c.beginPath();c.moveTo(X(.3),hz+1);for(let k=0;k<=80;k++){const f=k/80,x=X(.3+.72*f),y=hz-Hn*.17*(Math.pow(Math.sin(Math.PI*Math.min(1,f*1.05)),.5)*.8+.22*Math.exp(-((f-.7)**2)/.02))-Hn*.012*Math.sin(f*47);pk.push([x,y]);c.lineTo(x,y)}c.lineTo(X(1.02),hz+1);c.closePath();c.fill();c.strokeStyle='rgba(170,195,235,.3)';c.lineWidth=1.2;c.beginPath();pk.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
+  for(let i=0;i<14;i++){c.fillStyle='rgba(255,205,120,.55)';c.fillRect(X(.34+r()*.66),hz-1-r()*2,1.2,1.2)}
+  {const k=(t*.008)%1;c.fillStyle='rgba(235,240,250,.8)';const bx=X(.22+k*.05),bh=Math.max(5,Hn*.05);c.beginPath();c.moveTo(bx,hz+Hn*.12);c.lineTo(bx,hz+Hn*.12-bh);c.lineTo(bx+bh*.55,hz+Hn*.12);c.closePath();c.fill()}
+  /* o Morro Grande: cimo verde arredondado e a falésia a pique virada para o mar (à direita) */
+  const mt=by-Hn*.86,m=[[.55,by],[.6,by-Hn*.45],[.65,mt+Hn*.06],[.7,mt],[.78,mt+Hn*.03],[.835,mt+Hn*.1],[.86,mt+Hn*.22],[.875,by-Hn*.34],[.9,by-Hn*.28],[.905,by]];
+  const morro=()=>{c.beginPath();c.moveTo(X(m[0][0]),m[0][1]);for(let i=1;i<m.length;i++){const a=m[i-1],b=m[i];c.quadraticCurveTo(X(a[0]),a[1],X((a[0]+b[0])/2),(a[1]+b[1])/2)}c.lineTo(X(.905),by);c.closePath()};
+  g=c.createLinearGradient(0,mt,0,by);g.addColorStop(0,'#1d4434');g.addColorStop(1,'#112a24');c.fillStyle=g;morro();c.fill();
+  /* a falésia: rocha cor de areia ao luar, com riscos verticais */
+  c.save();morro();c.clip();c.fillStyle='#6d5f4c';c.beginPath();c.moveTo(X(.77),mt+Hn*.06);c.quadraticCurveTo(X(.8),mt+Hn*.3,X(.79),by-Hn*.12);c.lineTo(X(.91),by);c.lineTo(X(.91),mt);c.closePath();c.fill();
+  c.fillStyle='rgba(30,22,16,.45)';c.beginPath();c.moveTo(X(.86),mt+Hn*.2);c.lineTo(X(.875),by-Hn*.32);c.lineTo(X(.91),by-Hn*.25);c.lineTo(X(.91),by);c.lineTo(X(.86),by);c.closePath();c.fill();
+  c.strokeStyle='rgba(40,30,20,.22)';c.lineWidth=1.5;for(let i=0;i<14;i++){const x=X(.785+r()*.12),y0=mt+Hn*(.08+r()*.3);c.beginPath();c.moveTo(x,y0);c.lineTo(x+r()*2,y0+Hn*(.15+r()*.3));c.stroke()}
+  g=c.createLinearGradient(0,by-Hn*.25,0,by);g.addColorStop(0,'rgba(10,20,30,0)');g.addColorStop(1,'rgba(10,20,30,.6)');c.fillStyle=g;c.fillRect(X(.55),by-Hn*.25,X(.37),Hn*.25);c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(X(.6),by-Hn*.45);c.quadraticCurveTo(X(.65),mt+Hn*.06,X(.675),mt+Hn*.03);c.quadraticCurveTo(X(.7),mt,X(.74),mt+Hn*.015);c.stroke();
+  /* reflexo da falésia na água */
+  c.fillStyle='rgba(109,95,76,.18)';for(let k=0;k<6;k++)c.fillRect(X(.8+Math.sin(t+k)*.004),by+3+k*5,X(.09)*(1-k*.12),1.5);
+  /* o ilhéu (a agulha de rocha) no mar */
+  c.fillStyle='#0f1d2a';c.beginPath();c.moveTo(X(.95),by);c.lineTo(X(.953),by-Hn*.2);c.lineTo(X(.958),by-Hn*.24);c.lineTo(X(.963),by-Hn*.15);c.lineTo(X(.97),by);c.closePath();c.fill();
+  /* terra entre a vila e o morro, a subir */
+  c.fillStyle='#142f27';c.beginPath();c.moveTo(X(.38),by);c.quadraticCurveTo(X(.5),by-Hn*.1,X(.6),by-Hn*.42);c.lineTo(X(.62),by);c.closePath();c.fill();
+  /* a encosta verde à esquerda, com pastagens e muros de pedra */
+  const enc=()=>{c.beginPath();c.moveTo(-2,by);c.lineTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.quadraticCurveTo(X(.14),by-Hn*.2,X(.2),by-Hn*.17);c.lineTo(X(.38),by-Hn*.08);c.lineTo(X(.4),by);c.closePath()};
+  g=c.createLinearGradient(0,by-Hn,0,by);g.addColorStop(0,'#1e4636');g.addColorStop(1,'#13302a');c.fillStyle=g;enc();c.fill();
+  c.save();enc();c.clip();c.strokeStyle='rgba(170,200,160,.16)';c.lineWidth=1;
+  for(let i=0;i<9;i++){const y=by-Hn*(.2+i*.08);c.beginPath();c.moveTo(-2,y+Hn*.04);c.quadraticCurveTo(X(.06),y,X(.14),y-Hn*.03);c.stroke()}
+  for(let i=0;i<22;i++){const x=X(r()*.13),y=by-Hn*(.05+r()*.6);c.beginPath();c.moveTo(x,y);c.lineTo(x+X(.006),y+Hn*.07);c.stroke()}
+  c.fillStyle='rgba(120,170,110,.08)';for(let i=0;i<10;i++){const x=X(r()*.11),y=by-Hn*(.25+r()*.5);c.fillRect(x,y,X(.02+r()*.03),Hn*.05)}
+  c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.stroke();
+  /* a vila das Velas: casas brancas de telhado vermelho, a subir um pouco para a encosta */
+  const casa=(x,y,hs)=>{c.fillStyle='rgba(225,228,236,.82)';c.fillRect(x,y-hs,hs*1.6,hs);c.fillStyle='rgba(160,62,48,.9)';c.fillRect(x-.4,y-hs-hs*.35,hs*1.6+.8,hs*.38);
+    if(r()<.6){c.fillStyle='rgba(255,200,105,'+(.6+.35*Math.sin(t*1.5+x))+')';c.fillRect(x+hs*.45,y-hs*.65,Math.max(1.2,hs*.35),Math.max(1.2,hs*.35))}};
+  const hs0=Math.max(3,Hn*.06);
+  const cs=[];for(let i=0;i<110;i++){const f=.1+r()*.2,top=f<.16?.3-(f-.1)*1.6:.2-(f-.16)*.9,y=by-1-Hn*Math.max(.01,top)*Math.pow(r(),.8);cs.push([f,y])}cs.sort((a,b)=>a[1]-b[1]).forEach(q=>casa(X(q[0]),q[1],hs0*(.7+r()*.45)));
+  /* a Matriz das Velas */
+  {const x=X(.2),y=by-Hn*.02,tw=hs0*1.1,th=hs0*4.2;c.fillStyle='rgba(238,234,222,.92)';c.fillRect(x-hs0*2.4,y-hs0*1.8,hs0*2.4,hs0*1.8);c.fillRect(x,y-th,tw,th);c.beginPath();c.moveTo(x-.5,y-th);c.lineTo(x+tw/2,y-th-tw*1.4);c.lineTo(x+tw+.5,y-th);c.fill()}
+  /* o campo municipal: relvado com linhas, pista vermelha à volta e quatro torres de luz (apagadas) */
+  {const x0=X(.3),x1=X(.39),yt=by-Hn*.13,yb=by-Hn*.02,sk=X(.012);
+   c.fillStyle='rgba(150,60,50,.85)';c.beginPath();c.moveTo(x0-sk*.6,yb+2);c.lineTo(x0+sk-2,yt-2);c.lineTo(x1+sk+2,yt-2);c.lineTo(x1+3,yb+2);c.closePath();c.fill();
+   c.fillStyle='#2f7a45';c.beginPath();c.moveTo(x0,yb);c.lineTo(x0+sk,yt);c.lineTo(x1+sk,yt);c.lineTo(x1,yb);c.closePath();c.fill();
+   c.strokeStyle='rgba(240,245,240,.7)';c.lineWidth=1;c.stroke();c.beginPath();c.moveTo((x0+x1)/2,yb);c.lineTo((x0+x1)/2+sk,yt);c.stroke();
+   c.fillStyle='rgba(225,228,236,.85)';c.fillRect(x1+sk*.4,yt-hs0*.2,hs0*2,hs0*1.4);
+   [[x0-sk*.6,yb],[x0+sk-2,yt],[x1+sk+2,yt],[x1+3,yb]].forEach(q=>{c.fillStyle='rgba(200,205,215,.7)';c.fillRect(q[0],q[1]-Hn*.12,1.2,Hn*.12);c.fillRect(q[0]-1.5,q[1]-Hn*.12,4,2)})}
+  /* a marginal e o porto */
+  c.fillStyle='rgba(200,210,225,.45)';c.fillRect(X(.12),by-1,X(.26),2);
+  for(let i=0;i<9;i++){const x=X(.13+i*.03);c.fillStyle='#ffc56e';c.fillRect(x,by-4,1.6,1.6);c.strokeStyle='rgba(255,190,90,.25)';c.lineWidth=1.3;c.beginPath();c.moveTo(x-2,by+5+i%2*3);c.lineTo(x+4+2*Math.sin(t*2+i),by+5+i%2*3);c.stroke()}
+  {const x0=X(.1),x1=X(.15);c.strokeStyle='rgba(200,215,240,.5)';c.lineWidth=Math.max(2,Hn*.025);c.beginPath();c.moveTo(x0,by+1);c.lineTo(x1,by+4);c.stroke();c.fillStyle='rgba(255,90,80,'+(.5+.5*Math.sin(t*3))+')';c.fillRect(x1-1,by,3,3)}
+  /* nomes */
+  c.textBaseline='alphabetic';const txt=(n,x,y,sz,col)=>{c.textAlign='center';c.font=sz+' '+F;c.fillStyle='rgba(6,16,30,.65)';c.fillText(n,x+1,y+1);c.fillStyle=col;c.fillText(n,x,y)};
+  const W1='rgba(244,241,230,.92)',W2='rgba(157,188,255,.85)';
+  txt('Velas',X(.2),by-Hn*.38,sm?'900 13px':'900 15px',W1);
+  if(!sm)txt('Campo Municipal',X(.35),by-Hn*.2,'700 11px',W2);
+  if(!sm)txt('Morro Grande',X(.66),mt-8,'700 12px',W2);
+  txt('Pico',X(.62),hz-Hn*.22,sm?'700 11px':'700 12px',W2)}
+
 /* panorama de São Jorge por trás do início */
 function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)return;
   /* a costa da ilha fica logo acima dos cartões (PC) ou debaixo dos pés do Jorginho (telemóvel) */
@@ -3852,7 +3980,7 @@ function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)retu
   if(cv.width!==Math.round(W*d)||cv.height!==Math.round(H*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,W,H);
   const by=H*.74,g=c.createLinearGradient(0,by,0,H);g.addColorStop(0,'rgba(16,53,90,.95)');g.addColorStop(1,'rgba(16,53,90,0)');c.fillStyle=g;c.fillRect(0,by,W,H-by);
   c.strokeStyle='rgba(157,188,255,.22)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();for(let x=0;x<=W;x+=24){const y=by+10+i*14+Math.sin(x*.02+t*1.2+i*2)*2.5;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}
-  paintSaoJorge(c,W,H,by,t,{hub:true,main:'#183759',far:'#2f5784',rim:'rgba(200,220,255,.42)',H:Math.min(H*.58,Math.max(W*.11,92)),x0:W<560?0:.07,x1:W<560?.82:.86});
+  paintVelasHub(c,W,H,by,t);
 }
 
 /* ---------- fundo de noite de todos os ecrãs (menos o início):
@@ -8126,6 +8254,70 @@ function paintSaoJorge(c,w,h,by,t,o){
     txt('out of sight from here',ax,ay-as-3,sm?'700 10px':'700 11px','right',W2)}
 }
 
+/* panorama do início, como na fotografia das Velas vistas da encosta: a encosta verde à esquerda, a vila das Velas
+   à beira-mar com o campo municipal, o Morro Grande com a falésia a pique, o Pico comprido no horizonte e o ilhéu no mar.
+   De noite, ao luar: as luzes da vila acesas (são estas luzes que encandeiam os cagarros). */
+function paintVelasHub(c,W,H,by,t){
+  const Hn=Math.min(H*.7,Math.max(W*.12,110)),sm=W<560,X=f=>W*f,r=rng(77),F=(typeof F_DISPLAY!=='undefined'?F_DISPLAY:'sans-serif');
+  const hz=by-Hn*.62;
+  /* mar até ao horizonte, por trás da ilha */
+  let g=c.createLinearGradient(0,hz,0,by);g.addColorStop(0,'rgba(36,73,122,.0)');g.addColorStop(.08,'rgba(30,64,110,.85)');g.addColorStop(1,'rgba(16,53,90,.98)');c.fillStyle=g;c.fillRect(0,hz-2,W,by-hz+2);
+  c.fillStyle='rgba(170,200,240,.12)';for(let y=hz+4;y<by;y+=5){const d=(y-hz)/(by-hz);for(let i=0;i<W/60;i++)c.fillRect(r()*W,y,(4+r()*14)*(.4+d),1)}
+  /* o Pico, comprido, no horizonte (o cone fica escondido nas nuvens, como na fotografia) */
+  const pk=[];c.fillStyle='#34547f';c.beginPath();c.moveTo(X(.3),hz+1);for(let k=0;k<=80;k++){const f=k/80,x=X(.3+.72*f),y=hz-Hn*.17*(Math.pow(Math.sin(Math.PI*Math.min(1,f*1.05)),.5)*.8+.22*Math.exp(-((f-.7)**2)/.02))-Hn*.012*Math.sin(f*47);pk.push([x,y]);c.lineTo(x,y)}c.lineTo(X(1.02),hz+1);c.closePath();c.fill();c.strokeStyle='rgba(170,195,235,.3)';c.lineWidth=1.2;c.beginPath();pk.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
+  for(let i=0;i<14;i++){c.fillStyle='rgba(255,205,120,.55)';c.fillRect(X(.34+r()*.66),hz-1-r()*2,1.2,1.2)}
+  {const k=(t*.008)%1;c.fillStyle='rgba(235,240,250,.8)';const bx=X(.22+k*.05),bh=Math.max(5,Hn*.05);c.beginPath();c.moveTo(bx,hz+Hn*.12);c.lineTo(bx,hz+Hn*.12-bh);c.lineTo(bx+bh*.55,hz+Hn*.12);c.closePath();c.fill()}
+  /* o Morro Grande: cimo verde arredondado e a falésia a pique virada para o mar (à direita) */
+  const mt=by-Hn*.86,m=[[.55,by],[.6,by-Hn*.45],[.65,mt+Hn*.06],[.7,mt],[.78,mt+Hn*.03],[.835,mt+Hn*.1],[.86,mt+Hn*.22],[.875,by-Hn*.34],[.9,by-Hn*.28],[.905,by]];
+  const morro=()=>{c.beginPath();c.moveTo(X(m[0][0]),m[0][1]);for(let i=1;i<m.length;i++){const a=m[i-1],b=m[i];c.quadraticCurveTo(X(a[0]),a[1],X((a[0]+b[0])/2),(a[1]+b[1])/2)}c.lineTo(X(.905),by);c.closePath()};
+  g=c.createLinearGradient(0,mt,0,by);g.addColorStop(0,'#1d4434');g.addColorStop(1,'#112a24');c.fillStyle=g;morro();c.fill();
+  /* a falésia: rocha cor de areia ao luar, com riscos verticais */
+  c.save();morro();c.clip();c.fillStyle='#6d5f4c';c.beginPath();c.moveTo(X(.77),mt+Hn*.06);c.quadraticCurveTo(X(.8),mt+Hn*.3,X(.79),by-Hn*.12);c.lineTo(X(.91),by);c.lineTo(X(.91),mt);c.closePath();c.fill();
+  c.fillStyle='rgba(30,22,16,.45)';c.beginPath();c.moveTo(X(.86),mt+Hn*.2);c.lineTo(X(.875),by-Hn*.32);c.lineTo(X(.91),by-Hn*.25);c.lineTo(X(.91),by);c.lineTo(X(.86),by);c.closePath();c.fill();
+  c.strokeStyle='rgba(40,30,20,.22)';c.lineWidth=1.5;for(let i=0;i<14;i++){const x=X(.785+r()*.12),y0=mt+Hn*(.08+r()*.3);c.beginPath();c.moveTo(x,y0);c.lineTo(x+r()*2,y0+Hn*(.15+r()*.3));c.stroke()}
+  g=c.createLinearGradient(0,by-Hn*.25,0,by);g.addColorStop(0,'rgba(10,20,30,0)');g.addColorStop(1,'rgba(10,20,30,.6)');c.fillStyle=g;c.fillRect(X(.55),by-Hn*.25,X(.37),Hn*.25);c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(X(.6),by-Hn*.45);c.quadraticCurveTo(X(.65),mt+Hn*.06,X(.675),mt+Hn*.03);c.quadraticCurveTo(X(.7),mt,X(.74),mt+Hn*.015);c.stroke();
+  /* reflexo da falésia na água */
+  c.fillStyle='rgba(109,95,76,.18)';for(let k=0;k<6;k++)c.fillRect(X(.8+Math.sin(t+k)*.004),by+3+k*5,X(.09)*(1-k*.12),1.5);
+  /* o ilhéu (a agulha de rocha) no mar */
+  c.fillStyle='#0f1d2a';c.beginPath();c.moveTo(X(.95),by);c.lineTo(X(.953),by-Hn*.2);c.lineTo(X(.958),by-Hn*.24);c.lineTo(X(.963),by-Hn*.15);c.lineTo(X(.97),by);c.closePath();c.fill();
+  /* terra entre a vila e o morro, a subir */
+  c.fillStyle='#142f27';c.beginPath();c.moveTo(X(.38),by);c.quadraticCurveTo(X(.5),by-Hn*.1,X(.6),by-Hn*.42);c.lineTo(X(.62),by);c.closePath();c.fill();
+  /* a encosta verde à esquerda, com pastagens e muros de pedra */
+  const enc=()=>{c.beginPath();c.moveTo(-2,by);c.lineTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.quadraticCurveTo(X(.14),by-Hn*.2,X(.2),by-Hn*.17);c.lineTo(X(.38),by-Hn*.08);c.lineTo(X(.4),by);c.closePath()};
+  g=c.createLinearGradient(0,by-Hn,0,by);g.addColorStop(0,'#1e4636');g.addColorStop(1,'#13302a');c.fillStyle=g;enc();c.fill();
+  c.save();enc();c.clip();c.strokeStyle='rgba(170,200,160,.16)';c.lineWidth=1;
+  for(let i=0;i<9;i++){const y=by-Hn*(.2+i*.08);c.beginPath();c.moveTo(-2,y+Hn*.04);c.quadraticCurveTo(X(.06),y,X(.14),y-Hn*.03);c.stroke()}
+  for(let i=0;i<22;i++){const x=X(r()*.13),y=by-Hn*(.05+r()*.6);c.beginPath();c.moveTo(x,y);c.lineTo(x+X(.006),y+Hn*.07);c.stroke()}
+  c.fillStyle='rgba(120,170,110,.08)';for(let i=0;i<10;i++){const x=X(r()*.11),y=by-Hn*(.25+r()*.5);c.fillRect(x,y,X(.02+r()*.03),Hn*.05)}
+  c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.stroke();
+  /* a vila das Velas: casas brancas de telhado vermelho, a subir um pouco para a encosta */
+  const casa=(x,y,hs)=>{c.fillStyle='rgba(225,228,236,.82)';c.fillRect(x,y-hs,hs*1.6,hs);c.fillStyle='rgba(160,62,48,.9)';c.fillRect(x-.4,y-hs-hs*.35,hs*1.6+.8,hs*.38);
+    if(r()<.6){c.fillStyle='rgba(255,200,105,'+(.6+.35*Math.sin(t*1.5+x))+')';c.fillRect(x+hs*.45,y-hs*.65,Math.max(1.2,hs*.35),Math.max(1.2,hs*.35))}};
+  const hs0=Math.max(3,Hn*.06);
+  const cs=[];for(let i=0;i<110;i++){const f=.1+r()*.2,top=f<.16?.3-(f-.1)*1.6:.2-(f-.16)*.9,y=by-1-Hn*Math.max(.01,top)*Math.pow(r(),.8);cs.push([f,y])}cs.sort((a,b)=>a[1]-b[1]).forEach(q=>casa(X(q[0]),q[1],hs0*(.7+r()*.45)));
+  /* a Matriz das Velas */
+  {const x=X(.2),y=by-Hn*.02,tw=hs0*1.1,th=hs0*4.2;c.fillStyle='rgba(238,234,222,.92)';c.fillRect(x-hs0*2.4,y-hs0*1.8,hs0*2.4,hs0*1.8);c.fillRect(x,y-th,tw,th);c.beginPath();c.moveTo(x-.5,y-th);c.lineTo(x+tw/2,y-th-tw*1.4);c.lineTo(x+tw+.5,y-th);c.fill()}
+  /* o campo municipal: relvado com linhas, pista vermelha à volta e quatro torres de luz (apagadas) */
+  {const x0=X(.3),x1=X(.39),yt=by-Hn*.13,yb=by-Hn*.02,sk=X(.012);
+   c.fillStyle='rgba(150,60,50,.85)';c.beginPath();c.moveTo(x0-sk*.6,yb+2);c.lineTo(x0+sk-2,yt-2);c.lineTo(x1+sk+2,yt-2);c.lineTo(x1+3,yb+2);c.closePath();c.fill();
+   c.fillStyle='#2f7a45';c.beginPath();c.moveTo(x0,yb);c.lineTo(x0+sk,yt);c.lineTo(x1+sk,yt);c.lineTo(x1,yb);c.closePath();c.fill();
+   c.strokeStyle='rgba(240,245,240,.7)';c.lineWidth=1;c.stroke();c.beginPath();c.moveTo((x0+x1)/2,yb);c.lineTo((x0+x1)/2+sk,yt);c.stroke();
+   c.fillStyle='rgba(225,228,236,.85)';c.fillRect(x1+sk*.4,yt-hs0*.2,hs0*2,hs0*1.4);
+   [[x0-sk*.6,yb],[x0+sk-2,yt],[x1+sk+2,yt],[x1+3,yb]].forEach(q=>{c.fillStyle='rgba(200,205,215,.7)';c.fillRect(q[0],q[1]-Hn*.12,1.2,Hn*.12);c.fillRect(q[0]-1.5,q[1]-Hn*.12,4,2)})}
+  /* a marginal e o porto */
+  c.fillStyle='rgba(200,210,225,.45)';c.fillRect(X(.12),by-1,X(.26),2);
+  for(let i=0;i<9;i++){const x=X(.13+i*.03);c.fillStyle='#ffc56e';c.fillRect(x,by-4,1.6,1.6);c.strokeStyle='rgba(255,190,90,.25)';c.lineWidth=1.3;c.beginPath();c.moveTo(x-2,by+5+i%2*3);c.lineTo(x+4+2*Math.sin(t*2+i),by+5+i%2*3);c.stroke()}
+  {const x0=X(.1),x1=X(.15);c.strokeStyle='rgba(200,215,240,.5)';c.lineWidth=Math.max(2,Hn*.025);c.beginPath();c.moveTo(x0,by+1);c.lineTo(x1,by+4);c.stroke();c.fillStyle='rgba(255,90,80,'+(.5+.5*Math.sin(t*3))+')';c.fillRect(x1-1,by,3,3)}
+  /* nomes */
+  c.textBaseline='alphabetic';const txt=(n,x,y,sz,col)=>{c.textAlign='center';c.font=sz+' '+F;c.fillStyle='rgba(6,16,30,.65)';c.fillText(n,x+1,y+1);c.fillStyle=col;c.fillText(n,x,y)};
+  const W1='rgba(244,241,230,.92)',W2='rgba(157,188,255,.85)';
+  txt('Velas',X(.2),by-Hn*.38,sm?'900 13px':'900 15px',W1);
+  if(!sm)txt('Campo Municipal',X(.35),by-Hn*.2,'700 11px',W2);
+  if(!sm)txt('Morro Grande',X(.66),mt-8,'700 12px',W2);
+  txt('Pico',X(.62),hz-Hn*.22,sm?'700 11px':'700 12px',W2)}
+
 /* panorama de São Jorge por trás do início */
 function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)return;
   /* a costa da ilha fica logo acima dos cartões (PC) ou debaixo dos pés do Jorginho (telemóvel) */
@@ -8134,7 +8326,7 @@ function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)retu
   if(cv.width!==Math.round(W*d)||cv.height!==Math.round(H*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,W,H);
   const by=H*.74,g=c.createLinearGradient(0,by,0,H);g.addColorStop(0,'rgba(16,53,90,.95)');g.addColorStop(1,'rgba(16,53,90,0)');c.fillStyle=g;c.fillRect(0,by,W,H-by);
   c.strokeStyle='rgba(157,188,255,.22)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();for(let x=0;x<=W;x+=24){const y=by+10+i*14+Math.sin(x*.02+t*1.2+i*2)*2.5;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}
-  paintSaoJorge(c,W,H,by,t,{hub:true,main:'#183759',far:'#2f5784',rim:'rgba(200,220,255,.42)',H:Math.min(H*.58,Math.max(W*.11,92)),x0:W<560?0:.07,x1:W<560?.82:.86});
+  paintVelasHub(c,W,H,by,t);
 }
 
 /* ---------- fundo de noite de todos os ecrãs (menos o início):
@@ -9923,6 +10115,70 @@ function paintSaoJorge(c,w,h,by,t,o){
     txt('out of sight from here',ax,ay-as-3,sm?'700 10px':'700 11px','right',W2)}
 }
 
+/* panorama do início, como na fotografia das Velas vistas da encosta: a encosta verde à esquerda, a vila das Velas
+   à beira-mar com o campo municipal, o Morro Grande com a falésia a pique, o Pico comprido no horizonte e o ilhéu no mar.
+   De noite, ao luar: as luzes da vila acesas (são estas luzes que encandeiam os cagarros). */
+function paintVelasHub(c,W,H,by,t){
+  const Hn=Math.min(H*.7,Math.max(W*.12,110)),sm=W<560,X=f=>W*f,r=rng(77),F=(typeof F_DISPLAY!=='undefined'?F_DISPLAY:'sans-serif');
+  const hz=by-Hn*.62;
+  /* mar até ao horizonte, por trás da ilha */
+  let g=c.createLinearGradient(0,hz,0,by);g.addColorStop(0,'rgba(36,73,122,.0)');g.addColorStop(.08,'rgba(30,64,110,.85)');g.addColorStop(1,'rgba(16,53,90,.98)');c.fillStyle=g;c.fillRect(0,hz-2,W,by-hz+2);
+  c.fillStyle='rgba(170,200,240,.12)';for(let y=hz+4;y<by;y+=5){const d=(y-hz)/(by-hz);for(let i=0;i<W/60;i++)c.fillRect(r()*W,y,(4+r()*14)*(.4+d),1)}
+  /* o Pico, comprido, no horizonte (o cone fica escondido nas nuvens, como na fotografia) */
+  const pk=[];c.fillStyle='#34547f';c.beginPath();c.moveTo(X(.3),hz+1);for(let k=0;k<=80;k++){const f=k/80,x=X(.3+.72*f),y=hz-Hn*.17*(Math.pow(Math.sin(Math.PI*Math.min(1,f*1.05)),.5)*.8+.22*Math.exp(-((f-.7)**2)/.02))-Hn*.012*Math.sin(f*47);pk.push([x,y]);c.lineTo(x,y)}c.lineTo(X(1.02),hz+1);c.closePath();c.fill();c.strokeStyle='rgba(170,195,235,.3)';c.lineWidth=1.2;c.beginPath();pk.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
+  for(let i=0;i<14;i++){c.fillStyle='rgba(255,205,120,.55)';c.fillRect(X(.34+r()*.66),hz-1-r()*2,1.2,1.2)}
+  {const k=(t*.008)%1;c.fillStyle='rgba(235,240,250,.8)';const bx=X(.22+k*.05),bh=Math.max(5,Hn*.05);c.beginPath();c.moveTo(bx,hz+Hn*.12);c.lineTo(bx,hz+Hn*.12-bh);c.lineTo(bx+bh*.55,hz+Hn*.12);c.closePath();c.fill()}
+  /* o Morro Grande: cimo verde arredondado e a falésia a pique virada para o mar (à direita) */
+  const mt=by-Hn*.86,m=[[.55,by],[.6,by-Hn*.45],[.65,mt+Hn*.06],[.7,mt],[.78,mt+Hn*.03],[.835,mt+Hn*.1],[.86,mt+Hn*.22],[.875,by-Hn*.34],[.9,by-Hn*.28],[.905,by]];
+  const morro=()=>{c.beginPath();c.moveTo(X(m[0][0]),m[0][1]);for(let i=1;i<m.length;i++){const a=m[i-1],b=m[i];c.quadraticCurveTo(X(a[0]),a[1],X((a[0]+b[0])/2),(a[1]+b[1])/2)}c.lineTo(X(.905),by);c.closePath()};
+  g=c.createLinearGradient(0,mt,0,by);g.addColorStop(0,'#1d4434');g.addColorStop(1,'#112a24');c.fillStyle=g;morro();c.fill();
+  /* a falésia: rocha cor de areia ao luar, com riscos verticais */
+  c.save();morro();c.clip();c.fillStyle='#6d5f4c';c.beginPath();c.moveTo(X(.77),mt+Hn*.06);c.quadraticCurveTo(X(.8),mt+Hn*.3,X(.79),by-Hn*.12);c.lineTo(X(.91),by);c.lineTo(X(.91),mt);c.closePath();c.fill();
+  c.fillStyle='rgba(30,22,16,.45)';c.beginPath();c.moveTo(X(.86),mt+Hn*.2);c.lineTo(X(.875),by-Hn*.32);c.lineTo(X(.91),by-Hn*.25);c.lineTo(X(.91),by);c.lineTo(X(.86),by);c.closePath();c.fill();
+  c.strokeStyle='rgba(40,30,20,.22)';c.lineWidth=1.5;for(let i=0;i<14;i++){const x=X(.785+r()*.12),y0=mt+Hn*(.08+r()*.3);c.beginPath();c.moveTo(x,y0);c.lineTo(x+r()*2,y0+Hn*(.15+r()*.3));c.stroke()}
+  g=c.createLinearGradient(0,by-Hn*.25,0,by);g.addColorStop(0,'rgba(10,20,30,0)');g.addColorStop(1,'rgba(10,20,30,.6)');c.fillStyle=g;c.fillRect(X(.55),by-Hn*.25,X(.37),Hn*.25);c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(X(.6),by-Hn*.45);c.quadraticCurveTo(X(.65),mt+Hn*.06,X(.675),mt+Hn*.03);c.quadraticCurveTo(X(.7),mt,X(.74),mt+Hn*.015);c.stroke();
+  /* reflexo da falésia na água */
+  c.fillStyle='rgba(109,95,76,.18)';for(let k=0;k<6;k++)c.fillRect(X(.8+Math.sin(t+k)*.004),by+3+k*5,X(.09)*(1-k*.12),1.5);
+  /* o ilhéu (a agulha de rocha) no mar */
+  c.fillStyle='#0f1d2a';c.beginPath();c.moveTo(X(.95),by);c.lineTo(X(.953),by-Hn*.2);c.lineTo(X(.958),by-Hn*.24);c.lineTo(X(.963),by-Hn*.15);c.lineTo(X(.97),by);c.closePath();c.fill();
+  /* terra entre a vila e o morro, a subir */
+  c.fillStyle='#142f27';c.beginPath();c.moveTo(X(.38),by);c.quadraticCurveTo(X(.5),by-Hn*.1,X(.6),by-Hn*.42);c.lineTo(X(.62),by);c.closePath();c.fill();
+  /* a encosta verde à esquerda, com pastagens e muros de pedra */
+  const enc=()=>{c.beginPath();c.moveTo(-2,by);c.lineTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.quadraticCurveTo(X(.14),by-Hn*.2,X(.2),by-Hn*.17);c.lineTo(X(.38),by-Hn*.08);c.lineTo(X(.4),by);c.closePath()};
+  g=c.createLinearGradient(0,by-Hn,0,by);g.addColorStop(0,'#1e4636');g.addColorStop(1,'#13302a');c.fillStyle=g;enc();c.fill();
+  c.save();enc();c.clip();c.strokeStyle='rgba(170,200,160,.16)';c.lineWidth=1;
+  for(let i=0;i<9;i++){const y=by-Hn*(.2+i*.08);c.beginPath();c.moveTo(-2,y+Hn*.04);c.quadraticCurveTo(X(.06),y,X(.14),y-Hn*.03);c.stroke()}
+  for(let i=0;i<22;i++){const x=X(r()*.13),y=by-Hn*(.05+r()*.6);c.beginPath();c.moveTo(x,y);c.lineTo(x+X(.006),y+Hn*.07);c.stroke()}
+  c.fillStyle='rgba(120,170,110,.08)';for(let i=0;i<10;i++){const x=X(r()*.11),y=by-Hn*(.25+r()*.5);c.fillRect(x,y,X(.02+r()*.03),Hn*.05)}
+  c.restore();
+  c.strokeStyle='rgba(200,220,255,.35)';c.lineWidth=1.5;c.beginPath();c.moveTo(-2,by-Hn*.95);c.bezierCurveTo(X(.035),by-Hn*.9,X(.07),by-Hn*.6,X(.11),by-Hn*.34);c.stroke();
+  /* a vila das Velas: casas brancas de telhado vermelho, a subir um pouco para a encosta */
+  const casa=(x,y,hs)=>{c.fillStyle='rgba(225,228,236,.82)';c.fillRect(x,y-hs,hs*1.6,hs);c.fillStyle='rgba(160,62,48,.9)';c.fillRect(x-.4,y-hs-hs*.35,hs*1.6+.8,hs*.38);
+    if(r()<.6){c.fillStyle='rgba(255,200,105,'+(.6+.35*Math.sin(t*1.5+x))+')';c.fillRect(x+hs*.45,y-hs*.65,Math.max(1.2,hs*.35),Math.max(1.2,hs*.35))}};
+  const hs0=Math.max(3,Hn*.06);
+  const cs=[];for(let i=0;i<110;i++){const f=.1+r()*.2,top=f<.16?.3-(f-.1)*1.6:.2-(f-.16)*.9,y=by-1-Hn*Math.max(.01,top)*Math.pow(r(),.8);cs.push([f,y])}cs.sort((a,b)=>a[1]-b[1]).forEach(q=>casa(X(q[0]),q[1],hs0*(.7+r()*.45)));
+  /* a Matriz das Velas */
+  {const x=X(.2),y=by-Hn*.02,tw=hs0*1.1,th=hs0*4.2;c.fillStyle='rgba(238,234,222,.92)';c.fillRect(x-hs0*2.4,y-hs0*1.8,hs0*2.4,hs0*1.8);c.fillRect(x,y-th,tw,th);c.beginPath();c.moveTo(x-.5,y-th);c.lineTo(x+tw/2,y-th-tw*1.4);c.lineTo(x+tw+.5,y-th);c.fill()}
+  /* o campo municipal: relvado com linhas, pista vermelha à volta e quatro torres de luz (apagadas) */
+  {const x0=X(.3),x1=X(.39),yt=by-Hn*.13,yb=by-Hn*.02,sk=X(.012);
+   c.fillStyle='rgba(150,60,50,.85)';c.beginPath();c.moveTo(x0-sk*.6,yb+2);c.lineTo(x0+sk-2,yt-2);c.lineTo(x1+sk+2,yt-2);c.lineTo(x1+3,yb+2);c.closePath();c.fill();
+   c.fillStyle='#2f7a45';c.beginPath();c.moveTo(x0,yb);c.lineTo(x0+sk,yt);c.lineTo(x1+sk,yt);c.lineTo(x1,yb);c.closePath();c.fill();
+   c.strokeStyle='rgba(240,245,240,.7)';c.lineWidth=1;c.stroke();c.beginPath();c.moveTo((x0+x1)/2,yb);c.lineTo((x0+x1)/2+sk,yt);c.stroke();
+   c.fillStyle='rgba(225,228,236,.85)';c.fillRect(x1+sk*.4,yt-hs0*.2,hs0*2,hs0*1.4);
+   [[x0-sk*.6,yb],[x0+sk-2,yt],[x1+sk+2,yt],[x1+3,yb]].forEach(q=>{c.fillStyle='rgba(200,205,215,.7)';c.fillRect(q[0],q[1]-Hn*.12,1.2,Hn*.12);c.fillRect(q[0]-1.5,q[1]-Hn*.12,4,2)})}
+  /* a marginal e o porto */
+  c.fillStyle='rgba(200,210,225,.45)';c.fillRect(X(.12),by-1,X(.26),2);
+  for(let i=0;i<9;i++){const x=X(.13+i*.03);c.fillStyle='#ffc56e';c.fillRect(x,by-4,1.6,1.6);c.strokeStyle='rgba(255,190,90,.25)';c.lineWidth=1.3;c.beginPath();c.moveTo(x-2,by+5+i%2*3);c.lineTo(x+4+2*Math.sin(t*2+i),by+5+i%2*3);c.stroke()}
+  {const x0=X(.1),x1=X(.15);c.strokeStyle='rgba(200,215,240,.5)';c.lineWidth=Math.max(2,Hn*.025);c.beginPath();c.moveTo(x0,by+1);c.lineTo(x1,by+4);c.stroke();c.fillStyle='rgba(255,90,80,'+(.5+.5*Math.sin(t*3))+')';c.fillRect(x1-1,by,3,3)}
+  /* nomes */
+  c.textBaseline='alphabetic';const txt=(n,x,y,sz,col)=>{c.textAlign='center';c.font=sz+' '+F;c.fillStyle='rgba(6,16,30,.65)';c.fillText(n,x+1,y+1);c.fillStyle=col;c.fillText(n,x,y)};
+  const W1='rgba(244,241,230,.92)',W2='rgba(157,188,255,.85)';
+  txt('Velas',X(.2),by-Hn*.38,sm?'900 13px':'900 15px',W1);
+  if(!sm)txt('Campo Municipal',X(.35),by-Hn*.2,'700 11px',W2);
+  if(!sm)txt('Morro Grande',X(.66),mt-8,'700 12px',W2);
+  txt('Pico',X(.62),hz-Hn*.22,sm?'700 11px':'700 12px',W2)}
+
 /* panorama de São Jorge por trás do início */
 function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)return;
   /* a costa da ilha fica logo acima dos cartões (PC) ou debaixo dos pés do Jorginho (telemóvel) */
@@ -9931,7 +10187,7 @@ function paintHubIsland(t){const cv=document.getElementById('vj-sj');if(!cv)retu
   if(cv.width!==Math.round(W*d)||cv.height!==Math.round(H*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,W,H);
   const by=H*.74,g=c.createLinearGradient(0,by,0,H);g.addColorStop(0,'rgba(16,53,90,.95)');g.addColorStop(1,'rgba(16,53,90,0)');c.fillStyle=g;c.fillRect(0,by,W,H-by);
   c.strokeStyle='rgba(157,188,255,.22)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();for(let x=0;x<=W;x+=24){const y=by+10+i*14+Math.sin(x*.02+t*1.2+i*2)*2.5;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}
-  paintSaoJorge(c,W,H,by,t,{hub:true,main:'#183759',far:'#2f5784',rim:'rgba(200,220,255,.42)',H:Math.min(H*.58,Math.max(W*.11,92)),x0:W<560?0:.07,x1:W<560?.82:.86});
+  paintVelasHub(c,W,H,by,t);
 }
 
 /* ---------- fundo de noite de todos os ecrãs (menos o início):
